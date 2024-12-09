@@ -1,0 +1,153 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+/* Estilos para el contenedor de los botones de paginación */
+.dt-paging-button {
+    margin: 0 5px;  /* Espaciado entre los botones */
+}
+
+/* Estilo para los botones de paginación activos */
+.dt-paging-button.active .page-link {
+    background-color: #007bff;   /* Color de fondo del botón activo */
+    color: white;                 /* Color del texto en el botón activo */
+    border-color: #007bff;       /* Borde del botón activo */
+}
+
+/* Estilo para los botones de paginación en estado normal */
+.dt-paging-button .page-link {
+    background-color: #f8f9fa;   /* Color de fondo de los botones normales */
+    color: #007bff;               /* Color del texto de los botones normales */
+    border: 1px solid #ddd;      /* Borde de los botones normales */
+    border-radius: 5px;          /* Bordes redondeados */
+    padding: 5px 10px;           /* Padding para un botón más grande */
+    font-size: 14px;              /* Tamaño de la fuente */
+}
+
+/* Estilo cuando el usuario pasa el ratón por encima de los botones */
+.dt-paging-button .page-link:hover {
+    background-color: #007bff;   /* Fondo azul cuando se pasa el ratón */
+    color: white;                 /* Texto blanco cuando se pasa el ratón */
+    border-color: #0056b3;       /* Borde azul oscuro cuando se pasa el ratón */
+}
+
+/* Estilo para los botones de primera, anterior, siguiente y última página */
+.dt-paging-button .page-link:disabled {
+    background-color: #e9ecef;   /* Color de fondo para los botones deshabilitados */
+    color: #6c757d;               /* Color del texto para los botones deshabilitados */
+    border-color: #ddd;           /* Borde para los botones deshabilitados */
+    cursor: not-allowed;          /* Cambia el cursor cuando el botón está deshabilitado */
+}
+
+</style>
+
+<!-- Mensaje de advertencia -->
+<div id="mensajeAdvertencia" class="alert alert-warning mt-3" style="display: none;">
+    <strong>Advertencia:</strong> Primero debe seleccionar un servicio para hacer el registro.
+</div>
+
+
+
+
+<div class="text-center mb-4 " style="color:#eb984e">
+
+	<h2> Seleccione el paciente </h2>
+	<h3> para registro epidemiologico </h3>
+
+</div>
+
+<div class="mb-2 mt-4">
+
+    <div class="row">
+        <div class="col-md-4 col-12">
+            <p class="text-center">Elije el servicio para realizar el registro epidemiologico</p>
+            
+             <div class="mb-2">
+                <label class="form-label">Servicio</label>
+                <select class="form-control w-100" name="servicio" id="servicioSelect">
+                    <option class="text-center" value="0">Seleccione un servicio</option>
+                    
+                </select>
+    </div>
+        </div>
+        
+        <div class="col-md-8 col-12">
+            <table id="dataTablaPaciente" class="responsive custom-table table-striped mt-3 mb-5 border " style="width:100%">
+                <thead>
+                    <tr>
+                        <th>DNI</th>
+                        <th>Historia</th>
+                        <th>Nombre Paciente</th>
+                        <th>Edad</th>
+                        <th>Genero</th>
+                        <th>Seleccionar</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+@* FUNCION DEL BOTON PARA SELECCIONAR PACIENTE Y SERVICIO *@
+
+<script>
+
+function Seleccionar(dni,historia) {
+    // Obtener el valor seleccionado en el <select>
+    var servicioSeleccionado = document.getElementById("servicioSelect").value;
+    
+    // Verificar si se ha seleccionado un servicio
+    if (servicioSeleccionado === "0" || servicioSeleccionado === "") {
+        // Mostrar mensaje de advertencia si no se seleccionó servicio
+        document.getElementById("mensajeAdvertencia").style.display = "block";
+    } else {
+        // Si se seleccionó un servicio, ocultar el mensaje y realizar la acción
+        document.getElementById("mensajeAdvertencia").style.display = "none";
+        
+        window.location.href = `/RegistroEpidemiologico/RegistroEpidemiologico?dni=${dni}&idServicio=${servicioSeleccionado}`;
+    }
+}
+
+</script>
+
+@* PARA TRAER LOS SERVICIOS Y PONERLOS EN EL SELECT *@
+<script>
+
+    fetch('/Servicio/getServicios')
+     .then(response => response.json()) // Convertimos la respuesta a JSON
+     .then(data => {
+
+         // Accedemos al select usando el atributo name
+         const select = document.getElementsByName('servicio')[0]; // Obtenemos el primer elemento con el name 'servicio'
+
+         // Limpiamos las opciones anteriores 
+         select.innerHTML = '';
+
+         // Añadimos la opción por defecto
+         const optionDefault = new Option('Seleccione un servicio', '0');
+         select.appendChild(optionDefault);
+
+        const array = ["Medicina", "Cirugia", "Gineco Obstetricia", "Pediatria", "U.C.I.", "UCI-NEONATOLOGIA", "Neonatologia"];
+
+        // Iteramos sobre los servicios obtenidos de la API y añadimos opciones
+        data.forEach(servicio => {
+            if(array.includes(servicio.nombreServicio)) {  
+                const option = new Option(servicio.nombreServicio, servicio.codServi); // Creamos la opción con texto y valor
+                select.appendChild(option);  // Añadimos la opción al select
+            }
+        });
+
+     })
+     .catch(error => {
+         console.error('Error al cargar los servicios: ', error);
+     });
+
+
+</script>
+
+
+
+<script src="~/js/paciente/pacientedatos.js"></script>

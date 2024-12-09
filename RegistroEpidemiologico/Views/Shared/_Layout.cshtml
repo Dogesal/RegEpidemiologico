@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Registro Social</title>
+    <link href="~/css/content/site.css" rel="stylesheet" />
+    <link href="~/css/content/print.css" rel="stylesheet" />
+    <link href="~/css/content/tabla.css" rel="stylesheet" />
+    <link href="~/css/content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/content/sweetalert.css" rel="stylesheet" />
+    <link href="~/css/content/font-awesom.css" rel="stylesheet" />
+
+
+    <link href="~/css/datable/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/datable/datatables.bootstrap5.css" rel="stylesheet" />
+    <link href="~/css/datable/responsive.bootstrap5.css" rel="stylesheet" />
+    <link href="~/css/datable/datatables.datatables.css" rel="stylesheet" />
+    <link href="~/css/datable/buttons.datatables.css" rel="stylesheet" />
+
+</head>
+<body>
+    <script src="~/js/datatable/jquery-3.7.1.js"></script>
+    <script src="~/js/datatable/bootstrap.bundle.min.js"></script>
+    <script src="~/js/datatable/datatables.js"></script>
+    <script src="~/js/datatable/datatables.bootstrap5.js"></script>
+    <script src="~/js/datatable/datatables.responsive.js"></script>
+    <script src="~/js/datatable/responsive.bootstrap5.js"></script>
+    <script src="~/js/datatable/datatables.buttons.js"></script>
+    <script src="~/js/datatable/buttons.datatables.js"></script>
+    <script src="~/js/datatable/jszip.min.js"></script>
+    <script src="~/js/datatable/pdfmake.min.js"></script>
+    <script src="~/js/datatable/vfs_fonts.js"></script>
+    <script src="~/js/datatable/buttons.html5.min.js"></script>
+    <script src="~/js/datatable/buttons.print.min.js"></script>
+
+    <!-- Menú de navegación fijo en la parte superior -->
+    <div class="container-fluid">
+        <div class="">
+            @{
+                var usuarioAutenticado = Context.Session.GetString("UsuarioAutenticado");
+                var nombreUsuario = Context.Session.GetString("NombreUsuario");
+            }
+            @if (usuarioAutenticado != null || nombreUsuario != null)
+            {
+                <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #39A6A3; height:auto; width:100%;">
+                    <div class="container">
+                        <div class="d-flex justify-content-start" style="height:60px;">
+                            <img src="~/img/hospital logo.png" alt="Hospital Logo" />
+                        </div>
+
+                        <!-- Título del menú -->
+                        @Html.ActionLink("Registro Epidemiologico", "Index", "HOME", new { area = "" }, new { @class = "navbar-brand fw-bold" })
+
+                        <!-- Botón para el menú colapsable en pantallas pequeñas -->
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <!-- Menú desplegable (se colapsa en pantallas pequeñas) -->
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-end w-100">
+                                <!-- Opción: Nuevo Registro -->
+                                @* <li class="nav-item">
+                                    @Html.ActionLink("Nuevo Registro", "RegistroSocial", "RegistroSocial", new { area = "" }, new { @class = "nav-link" })
+                                </li>
+                                 *@
+
+                                <!-- Opción: Cerrar sesión -->
+                                <li class="nav-item d-flex">
+                                    <button class="btn btn-danger" onclick="CerrarSesion()"> CERRAR SESION </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+            }
+
+
+            <!-- Contenido Principal con ancho de columna 8 -->
+            <main class="" style="padding-left:100px;padding-right:100px; padding-top:50px;border-color:aqua ; border-radius:3px 4px" role="main" aria-labelledby="main-heading">
+                <h1 id="main-heading" class="visually-hidden">Contenido Principal de Registro Social</h1>
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <input id="idRaiz" type="hidden" value=@Url.Content("~") />
+
+    <script src="~/js/usuario/sesion.js"></script>
+    <script src="~/js/sweetalert.js"></script>
+    <script src="~/js/jquery-1.10.2.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/modernizr-2.6.2.js"></script>
+
+    @* <script src="~/js/scripts/datatable/configuracion/configuraciondt.js"></script> *@
+
+</body>
+</html>

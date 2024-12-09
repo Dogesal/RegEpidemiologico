@@ -1,0 +1,36 @@
+﻿.custom-table {
+    width: 100%;
+    border-collapse: separate;
+    border-radius: 8px;
+    overflow: hidden; /* Para asegurar que las esquinas se mantengan redondeadas */
+}
+
+.custom-table th, .custom-table td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: left;
+}
+
+.custom-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.custom-table tr:hover {
+    background-color: #b6ff00;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.custom-table td, .custom-table th {
+    border-radius: 4px; /* Aplica bordes suaves a las celdas */
+}

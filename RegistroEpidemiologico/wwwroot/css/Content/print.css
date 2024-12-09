@@ -1,0 +1,113 @@
+﻿/* Print-specific styles */
+@media print {
+    /* Hide navigation and unnecessary elements */
+    nav, .navbar, .navbar-brand, .nav-item, button {
+        display: none !important;
+    }
+
+    /* Ensure main content (RenderBody) is visible */
+    main {
+        display: block !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* General body settings */
+    body {
+        font-size: 8px; /* Smaller font size for print */
+        line-height: 1.2;
+    }
+
+    /* Apply the scaling to the entire page */
+   
+
+    /* Container layout */
+    .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Flex column styling */
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0; /* Remove any space between columns */
+    }
+
+    /* Set specific column widths */
+    .col-md-3 {
+        flex: 0 0 24%; /* 4-column layout */
+        max-width: 24%;
+    }
+
+    .col-md-4 {
+        flex: 0 0 33.33%; /* 3-column layout */
+        max-width: 33.33%;
+    }
+
+    .col-md-6 {
+        flex: 0 0 50%; /* 2-column layout */
+        max-width: 50%;
+    }
+
+    .col-md-12 {
+        flex: 0 0 100%; /* Full width for single-column */
+        max-width: 100%;
+    }
+
+    /* Titles and headers */
+    h3, h5 {
+        font-size: 1em;
+        text-align: center;
+        margin: 0;
+    }
+
+    /* Form controls and labels */
+    label {
+        font-size: 0.8em;
+    }
+
+    .form-control {
+        font-size: 0.6em; /* Smaller font size for inputs */
+        padding: 0.2em; /* Reduce padding */
+        height: 1.5em; /* Smaller input height */
+        line-height: 1.2em;
+    }
+
+    /* Page size adjustments */
+    @page {
+        size: A4; /* Ensure page size is A4 */
+        margin: 10mm; /* Adjust margins to fit content */
+    }
+
+    /* Prevent page breaks inside important sections */
+    .row, .container, .col-md-3, .col-md-4, .col-md-6, .col-md-12 {
+        page-break-inside: avoid; /* Avoid content breaking between pages */
+    }
+
+    /* Prevent page breaks between form elements */
+    h3, h5, .form-control, label, .row {
+        page-break-before: avoid;
+        page-break-after: avoid;
+    }
+
+    /* Textarea handling */
+    textarea {
+        font-size: 0.6em; /* Adjust size for textareas */
+        padding: 0.2em; /* Reduce padding */
+        height: 2.2em; /* Adjust height */
+    }
+
+    /* Footer and signature */
+    .row.mt-5 {
+        page-break-before: always;
+    }
+
+    /* Hide the button section from the print */
+    button {
+        display: none !important;
+    }
+}
