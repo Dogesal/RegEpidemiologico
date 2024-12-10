@@ -40,6 +40,7 @@ List<Type> types = new List<Type>
     typeof(BusquedaPaciente),
     typeof(UsuarioBL),
     typeof(ServicioBL),
+    typeof(CamaBL)
     
 
 };

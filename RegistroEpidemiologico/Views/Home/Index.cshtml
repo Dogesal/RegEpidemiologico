@@ -17,38 +17,6 @@
     <p class="mt-3">Estamos encantados de tenerte aquí. ¡Explora nuestros registros!</p>
     @Html.ActionLink("Ver Registros", "Index", "Paciente", new { area = "" }, new { @class = "btn btn-primary btn-lg mt-4" })
 </div>
-<div id="image-container">
-    <!-- La imagen será insertada aquí -->
-    <p>Cargando imagen...</p>
-</div>
-
-<script>
-    // Usar fetch para obtener la imagen
-    fetch('/Imagen/MostrarImagen/')
-   .then(response => response.json())
-   .then(data => {
-       if (data.image) {
-           // Crear un elemento <img> para mostrar la imagen
-           const imgElement = document.createElement('img');
-           imgElement.src = `data:image/jpeg;base64,${data.image}`; // Usar la imagen Base64
-           imgElement.alt = "Imagen del paciente";
-           imgElement.style.maxWidth = '100%'; // Ajustar el tamaño si es necesario
-
-           // Insertar la imagen en el div
-           const container = document.getElementById('image-container');
-           container.innerHTML = ''; // Limpiar el mensaje "Cargando imagen..."
-           container.appendChild(imgElement); // Agregar la imagen al contenedor
-       } else {
-           // Si no hay imagen, mostrar un mensaje
-           document.getElementById('image-container').innerHTML = '<p>No se encontró la imagen.</p>';
-       }
-   })
-   .catch(error => {
-       console.error('Error al obtener la imagen:', error);
-       document.getElementById('image-container').innerHTML = '<p>Hubo un error al cargar la imagen.</p>';
-   });
-
-</script>
 
 <script>
     function getGreeting() {

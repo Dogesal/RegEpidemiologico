@@ -50,6 +50,10 @@ public partial class SghrhContext : DbContext
     public virtual DbSet<VigilanciaEpidemiologica> VigilanciaEpidemiologicas { get; set; }
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
+
+    public virtual DbSet<Especialidad> Especialidades { get; set; }
+
+    public virtual DbSet<Subarea> Subareas { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=ConnectionStrings:cn");
 
@@ -812,7 +816,45 @@ public partial class SghrhContext : DbContext
                 .HasColumnName("telefono");
         });
 
+        modelBuilder.Entity<Especialidad>(entity =>
+        {
+            entity.HasKey(e => e.CodEspec);
 
+            entity.ToTable("especialidad");
+
+            entity.Property(e => e.CodEspec)
+                .HasMaxLength(6)
+                .IsUnicode(false)
+                .HasColumnName("cod_espec");
+            entity.Property(e => e.CodDepen)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .HasColumnName("cod_depen");
+            entity.Property(e => e.CodServi)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .HasColumnName("cod_servi");
+            entity.Property(e => e.Idespegeneral)
+                .HasMaxLength(30)
+                .IsUnicode(false)
+                .HasColumnName("idespegeneral");
+        });
+        modelBuilder.Entity<Subarea>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("subarea");
+
+            entity.Property(e => e.CodEspec)
+                .HasMaxLength(6)
+                .IsUnicode(false)
+                .HasColumnName("cod_espec");
+            entity.Property(e => e.Idsubarea).HasColumnName("idsubarea");
+            entity.Property(e => e.Nombresubarea)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("nombresubarea");
+        });
         OnModelCreatingPartial(modelBuilder);
     }
 

@@ -21,6 +21,7 @@ namespace CAPA_NEGOCIO
 
         public object BuscarPaciente(string parametro)
         {
+            var fecha_Actual = DateTime.Now; // Obtener la fecha actual completa
 
             var query = from h in _sghrhContext.Historia
                         where h.Dni == parametro // Filtro para NHC o DNI
@@ -29,8 +30,11 @@ namespace CAPA_NEGOCIO
                             DNI=h.Dni,
                             Nhistoria=h.Nhc,
                             Nombre=h.Nombres+" "+h.ApePaterno + " " +h.ApeMaterno,
-                            Edad=h.Edad,
-                            Sexo=h.Sexo=="M"?"MASCULINO":"FEMENINO"
+                            Edad= h.FecNac.HasValue
+                                    ? fecha_Actual.Year - h.FecNac.Value.Year -
+                                      (fecha_Actual < h.FecNac.Value.AddYears(fecha_Actual.Year - h.FecNac.Value.Year) ? 1 : 0)
+                                    : h.Edad, // Si FecNac es nulo, se usa el valor de "Edad" de la tabla Historia
+                            Sexo =h.Sexo=="M"?"MASCULINO":"FEMENINO"
                         };
 
             // Obtener el primer paciente que cumpla con la condición o null si no existe
@@ -64,6 +68,7 @@ namespace CAPA_NEGOCIO
 
 
         }
+
 
 
 

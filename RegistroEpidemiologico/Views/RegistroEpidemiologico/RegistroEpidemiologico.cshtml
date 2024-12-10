@@ -21,7 +21,9 @@
             <div class="col-3"> 
                 <div class="form-group">
                     <label class="form-label">CAMA</label>
-                    <input class="form-control" type="text" name="CAMA" value="" />
+                <select class="form-control" name="CAMA">
+                    <option value="">Seleccione una cama</option>
+                </select>
                 </div>
             </div>
             <div class="col-3"> 
@@ -34,7 +36,7 @@
             <div class="col-6"> 
                 <div class="form-group">
                 <label class="form-label" > DIAGNOSTICO MEDICO INGRESO</label>
-                <input class="form-control" type="text" name="Nombre_Paciente" value="" />
+                <input class="form-control" type="text" name="DX_medico" value="" />
             </div>
             </div>
     </div>
@@ -57,7 +59,7 @@
         <div class="col-3">
             <div class="form-group">
                 <label class="form-label" > Sexo</label>
-                <input class="form-control" type="text" name="Nombre_Paciente" value="" />
+                <input class="form-control" type="text" name="Sexo" value="" />
             </div>
         </div>
 
@@ -74,11 +76,91 @@
     <div>
         
         <input  />
+
     </div>
 
 
 </div>
 
+<script>
+    // Function to fetch patient data based on patient ID
+    function loadPatientData(patientId) {
+        // Construct the URL for the API endpoint
+        const apiUrl = `https://localhost:7061/Paciente/getPaciente/?id=${patientId}`;
+
+        // Make a GET request to the API
+        fetch(apiUrl)
+            .then(response => response.json()) // Parse the JSON response
+            .then(data => {
+                // Check if data was returned
+                if (data) {
+                    // Fill the input fields with the received data
+                    document.querySelector('input[name="HISTORIA/DNI"]').value = `${data.nhistoria}/${data.dni}`;
+                    document.querySelector('input[name="Nombre_Paciente"]').value = data.nombre;
+                    document.querySelector('input[name="Edad"]').value = data.edad;
+                    document.querySelector('input[name="Sexo"]').value = data.sexo;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching patient data:', error);
+            });
+    }
+
+    // Function to fetch camas based on service ID
+    function loadCamasByService(serviceId) {
+        // Construct the URL for the API endpoint
+        const apiUrl = `/Cama/getCamasServicio/?id=${serviceId}`;
+
+        // Make a GET request to the API
+        fetch(apiUrl)
+            .then(response => response.json()) // Parse the JSON response
+            .then(data => {
+                // Get the select element by name
+                const camaSelect = document.querySelector('select[name="CAMA"]');
+
+                // Clear any existing options
+                camaSelect.innerHTML = '';
+
+                // Add a default "Please select" option
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Seleccione una cama';
+                camaSelect.appendChild(defaultOption);
+
+                // Check if data was returned
+                if (data && Array.isArray(data)) {
+                    // Loop through the returned data and create an option for each cama
+                    data.forEach(cama => {
+                        const option = document.createElement('option');
+                        option.value = cama.nombrecama; // Set the cama name as the option value
+                        option.textContent = cama.nombrecama; // Display the cama name in the dropdown
+                        camaSelect.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching camas:', error);
+            });
+    }
+
+    // Load data when the page loads
+    window.onload = function() {
+        // Get the patient id and service id from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const patientId = urlParams.get('dni');
+        const idServicio = urlParams.get('idServicio');
+
+        // Load patient data if patientId is available
+        if (patientId) {
+            loadPatientData(patientId);
+        }
+
+        // Load camas for the specified service if idServicio is available
+        if (idServicio) {
+            loadCamasByService(idServicio);
+        }
+    };
+</script>
 <script>
 
     
