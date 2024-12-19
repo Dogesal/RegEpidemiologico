@@ -25,3 +25,17 @@ C:\Users\ALAN\Documents\git\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\refi
 C:\Users\ALAN\Documents\git\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\CAPA_ENTIDAD.pdb
 C:\Users\ALAN\Documents\git\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\CAPA_ENTIDAD.genruntimeconfig.cache
 C:\Users\ALAN\Documents\git\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\ref\CAPA_ENTIDAD.dll
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\bin\Debug\net8.0\CAPA_ENTIDAD.deps.json
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\bin\Debug\net8.0\CAPA_ENTIDAD.runtimeconfig.json
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\bin\Debug\net8.0\CAPA_ENTIDAD.dll
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\bin\Debug\net8.0\CAPA_ENTIDAD.pdb
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\CAPA_ENTIDAD.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\CAPA_ENTIDAD.AssemblyInfoInputs.cache
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\CAPA_ENTIDAD.AssemblyInfo.cs
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\CAPA_ENTIDAD.csproj.CoreCompileInputs.cache
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\CAPA_ENTIDAD.sourcelink.json
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\CAPA_ENTIDAD.dll
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\refint\CAPA_ENTIDAD.dll
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\CAPA_ENTIDAD.pdb
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\CAPA_ENTIDAD.genruntimeconfig.cache
+C:\Users\HDHVCA\Documents\git\RegistroEpidemiologico\RegEpidemiologico\CAPA_ENTIDAD\obj\Debug\net8.0\ref\CAPA_ENTIDAD.dll

@@ -16,6 +16,7 @@ wwwroot\css\site.css
 wwwroot\css\usuario\cssUsuario.css
 wwwroot\favicon.ico
 wwwroot\img\hospital logo.png
+wwwroot\img\PAKA1.png
 wwwroot\js\bootstrap.js
 wwwroot\js\bootstrap.min.js
 wwwroot\js\datatable\bootstrap.bundle.min.js
@@ -39,6 +40,9 @@ wwwroot\js\jquery-1.10.2.min.js
 wwwroot\js\jquery-1.10.2.min.map
 wwwroot\js\modernizr-2.6.2.js
 wwwroot\js\paciente\pacienteDatos.js
+wwwroot\js\particles\app.js
+wwwroot\js\particles\particles.min.js
+wwwroot\js\particles\stats.js
 wwwroot\js\registro_social\registroSocial.js
 wwwroot\js\site.js
 wwwroot\js\sweetalert.js

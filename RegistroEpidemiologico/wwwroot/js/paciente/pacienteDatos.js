@@ -41,7 +41,7 @@
             paging: true,       // Paginación
             searching: true,    // Búsqueda
             ordering: true,     // Ordenación
-            pageLength: 10,     // Número de registros por página
+            pageLength: 5,     // Número de registros por página
             
         });
     });

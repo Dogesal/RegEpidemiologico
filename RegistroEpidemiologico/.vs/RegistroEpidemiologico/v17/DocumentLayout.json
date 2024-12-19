@@ -1,39 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\",
+  "WorkspaceRootPath": "C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\RegEpidemiologico\\RegistroEpidemiologico\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EB4A7E8C-D770-4B1C-9B23-119799970A1D}|..\\CAPA_NEGOCIO\\CAPA_NEGOCIO.csproj|c:\\users\\alan\\documents\\git\\regepidemiologico\\capa_negocio\\busquedapaciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|c:\\users\\alan\\documents\\git\\regepidemiologico\\registroepidemiologico\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|c:\\users\\alan\\documents\\git\\regepidemiologico\\registroepidemiologico\\views\\registroepidemiologico\\registroepidemiologico.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|c:\\users\\hdhvca\\documents\\git\\registroepidemiologico\\regepidemiologico\\registroepidemiologico\\views\\registroepidemiologico\\registroepidemiologico.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|solutionrelative:views\\registroepidemiologico\\registroepidemiologico.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EB4A7E8C-D770-4B1C-9B23-119799970A1D}|..\\CAPA_NEGOCIO\\CAPA_NEGOCIO.csproj|c:\\users\\alan\\documents\\git\\regepidemiologico\\capa_negocio\\camabl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|c:\\users\\hdhvca\\documents\\git\\registroepidemiologico\\regepidemiologico\\registroepidemiologico\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|c:\\users\\alan\\documents\\git\\regepidemiologico\\registroepidemiologico\\views\\registroepidemiologico\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|solutionrelative:views\\registroepidemiologico\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|c:\\users\\hdhvca\\documents\\git\\registroepidemiologico\\regepidemiologico\\registroepidemiologico\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|c:\\users\\alan\\documents\\git\\regepidemiologico\\registroepidemiologico\\views\\paciente\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|solutionrelative:views\\paciente\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|c:\\users\\alan\\documents\\git\\regepidemiologico\\registroepidemiologico\\wwwroot\\js\\paciente\\pacientedatos.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|solutionrelative:wwwroot\\js\\paciente\\pacientedatos.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|c:\\users\\alan\\documents\\git\\regepidemiologico\\registroepidemiologico\\controllers\\serviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|solutionrelative:controllers\\serviciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\CAPA_NEGOCIO\\ServicioBL.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|c:\\users\\hdhvca\\documents\\git\\registroepidemiologico\\regepidemiologico\\registroepidemiologico\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{85334DBA-A7C7-449F-A5FD-CDBF4166C182}|RegistroEpidemiologico.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,8 +26,22 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-18T15:12:21.174Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:2:0:{57d563b6-44a5-47df-85be-f4199ad6b651}"
@@ -63,115 +60,42 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\RegEpidemiologico\\RegistroEpidemiologico\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\RegEpidemiologico\\RegistroEpidemiologico\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "wwwroot\\css\\site.css",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAAcAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-12-18T21:53:20.483Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "BusquedaPaciente.cs",
-              "DocumentMoniker": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\CAPA_NEGOCIO\\BusquedaPaciente.cs",
-              "RelativeDocumentMoniker": "..\\CAPA_NEGOCIO\\BusquedaPaciente.cs",
-              "ToolTip": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\CAPA_NEGOCIO\\BusquedaPaciente.cs",
-              "RelativeToolTip": "..\\CAPA_NEGOCIO\\BusquedaPaciente.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwBgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-10T03:13:31.661Z",
+              "Title": "RegistroEpidemiologico.cshtml",
+              "DocumentMoniker": "C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\RegistroEpidemiologico\\RegistroEpidemiologico.cshtml",
+              "RelativeDocumentMoniker": "Views\\RegistroEpidemiologico\\RegistroEpidemiologico.cshtml",
+              "ToolTip": "C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\RegistroEpidemiologico\\RegistroEpidemiologico.cshtml",
+              "RelativeToolTip": "Views\\RegistroEpidemiologico\\RegistroEpidemiologico.cshtml",
+              "ViewState": "AgIAAGsCAAAAAAAAAAAwwHMCAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-18T15:11:07.541Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "CamaBL.cs",
-              "DocumentMoniker": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\CAPA_NEGOCIO\\CamaBL.cs",
-              "RelativeDocumentMoniker": "..\\CAPA_NEGOCIO\\CamaBL.cs",
-              "ToolTip": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\CAPA_NEGOCIO\\CamaBL.cs",
-              "RelativeToolTip": "..\\CAPA_NEGOCIO\\CamaBL.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAIA/wAkAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-10T00:29:38.483Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RegistroEpidemiologico.cshtml",
-              "DocumentMoniker": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\RegistroEpidemiologico\\RegistroEpidemiologico.cshtml",
-              "RelativeDocumentMoniker": "Views\\RegistroEpidemiologico\\RegistroEpidemiologico.cshtml",
-              "ToolTip": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\RegistroEpidemiologico\\RegistroEpidemiologico.cshtml",
-              "RelativeToolTip": "Views\\RegistroEpidemiologico\\RegistroEpidemiologico.cshtml",
-              "ViewState": "AgIAAHcAAAAAAAAAAAAkwJYAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-09T15:16:43.79Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\Shared\\_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAADwAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAwwFQAAABsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-09T14:56:14.156Z",
+              "WhenOpened": "2024-12-12T21:11:39.322Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ServicioBL.cs",
-              "DocumentMoniker": "C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\CAPA_NEGOCIO\\ServicioBL.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\CAPA_NEGOCIO\\ServicioBL.cs",
-              "ToolTip": "C:\\Users\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\CAPA_NEGOCIO\\ServicioBL.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\HDHVCA\\Documents\\git\\RegistroEpidemiologico\\CAPA_NEGOCIO\\ServicioBL.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAUwBgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-09T13:25:06.492Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\Paciente\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Paciente\\Index.cshtml",
-              "ToolTip": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\Paciente\\Index.cshtml",
-              "RelativeToolTip": "Views\\Paciente\\Index.cshtml",
-              "ViewState": "AgIAACgAAAAAAAAAAAAwwDUAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-05T17:23:18.022Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\RegistroEpidemiologico\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\RegistroEpidemiologico\\Index.cshtml",
-              "ToolTip": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\Views\\RegistroEpidemiologico\\Index.cshtml",
-              "RelativeToolTip": "Views\\RegistroEpidemiologico\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-05T17:21:03.476Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "pacienteDatos.js",
-              "DocumentMoniker": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\wwwroot\\js\\paciente\\pacienteDatos.js",
-              "RelativeDocumentMoniker": "wwwroot\\js\\paciente\\pacienteDatos.js",
-              "ToolTip": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\wwwroot\\js\\paciente\\pacienteDatos.js",
-              "RelativeToolTip": "wwwroot\\js\\paciente\\pacienteDatos.js",
-              "ViewState": "AgIAAA8AAAAAAAAAAADwvxMAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-12-05T21:32:26.428Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ServicioController.cs",
-              "DocumentMoniker": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\Controllers\\ServicioController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ServicioController.cs",
-              "ToolTip": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\RegistroEpidemiologico\\Controllers\\ServicioController.cs",
-              "RelativeToolTip": "Controllers\\ServicioController.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAmwCQAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-05T21:23:24.743Z"
             }
           ]
         }

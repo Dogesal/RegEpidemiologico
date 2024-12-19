@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CAPA_ENTIDAD;
 using Microsoft.EntityFrameworkCore;
 
 namespace RegistroEpidemiologico;
@@ -54,6 +55,9 @@ public partial class SghrhContext : DbContext
     public virtual DbSet<Especialidad> Especialidades { get; set; }
 
     public virtual DbSet<Subarea> Subareas { get; set; }
+
+
+    public virtual DbSet<CieSemm> CieSemms { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=ConnectionStrings:cn");
 
@@ -675,15 +679,28 @@ public partial class SghrhContext : DbContext
             entity.ToTable("servicio_dispositivos_medicos");
 
             entity.Property(e => e.IdServicioDispositivosMedicos).HasColumnName("ID_servicio_dispositivos_medicos");
+
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
+
             entity.Property(e => e.IdDispositivosMedicos).HasColumnName("ID_dispositivos_medicos");
 
             entity.HasOne(d => d.IdDispositivosMedicosNavigation).WithMany(p => p.ServicioDispositivosMedicos)
                 .HasForeignKey(d => d.IdDispositivosMedicos)
                 .HasConstraintName("FK__servicio___ID_di__3C974627");
+
+            entity.Property(e => e.IdServicio)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .HasColumnName("ID_servicio");
+
+            entity.Property(e => e.IdDependencia)
+                .HasMaxLength(2)
+                .IsUnicode(false)
+                .HasDefaultValue("04")
+                .HasColumnName("ID_dependencia");
         });
 
         modelBuilder.Entity<Ubicacioncama>(entity =>
@@ -855,6 +872,51 @@ public partial class SghrhContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("nombresubarea");
         });
+
+        modelBuilder.Entity<CieSemm>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("cie_semm");
+
+            entity.Property(e => e.Codigo)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("codigo");
+            entity.Property(e => e.Descrip)
+                .HasMaxLength(243)
+                .IsUnicode(false)
+                .HasColumnName("descrip");
+            entity.Property(e => e.EMax)
+                .HasMaxLength(3)
+                .IsUnicode(false)
+                .HasColumnName("e_max");
+            entity.Property(e => e.EMin)
+                .HasMaxLength(3)
+                .IsUnicode(false)
+                .HasColumnName("e_min");
+            entity.Property(e => e.Estado)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("estado");
+            entity.Property(e => e.Sexo)
+                .HasMaxLength(1)
+                .IsFixedLength()
+                .HasColumnName("sexo");
+            entity.Property(e => e.Tcie)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("tcie");
+            entity.Property(e => e.TeMax)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("te_max");
+            entity.Property(e => e.TeMin)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("te_min");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 

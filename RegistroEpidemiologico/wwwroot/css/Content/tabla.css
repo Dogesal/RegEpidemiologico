@@ -5,21 +5,6 @@
     overflow: hidden; /* Para asegurar que las esquinas se mantengan redondeadas */
 }
 
-.custom-table th, .custom-table td {
-    border: 1px solid #ddd;
-    padding: 6px;
-    text-align: left;
-}
-
-.custom-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-    color: #333;
-}
-
-.custom-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
 
 .custom-table tr:hover {
     background-color: #b6ff00;

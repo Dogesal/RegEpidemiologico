@@ -4,83 +4,545 @@
 @{
 }
 
- 
+@{
+    var usuarioAutenticado = Context.Session.GetString("UsuarioAutenticado");
+    var nombreUsuario = Context.Session.GetString("NombreUsuario");
+}
+@if (usuarioAutenticado == null || nombreUsuario == null)
+{
+
+    <script>window.location.href = `/Usuario`;</script>
+}
 
 
 <div class="row">
-    <div class="d-flex justify-content-start col-3" style="height:100px">
-        <img src="~/img/hospital logo.png" />
+
+    <div class="col-3 text-center">
+        <h3 id="servicio_actual">Servicio:</h3>
     </div>
+
     <div class="col-6 text-center">
         <h3>FICHA DE REGISTRO EPIDEMIOLOGICO</h3>
+    </div>
+    
+
+    <div class="col-3 text-center">
+        <label class="form-label">FECHA:</label>
+        <input class="form-control" type="date" name="fecha_registro" id="fecha_registro" />
     </div>
 </div>
 
 <div class="container">
     <div class="row my-2">
-            <div class="col-3"> 
-                <div class="form-group">
-                    <label class="form-label">CAMA</label>
-                <select class="form-control" name="CAMA">
+        <!-- Cama -->
+        <div class="col">
+            <!-- Cambio a 'col' para flexibilidad -->
+            <div class="form-group">
+                <label class="form-label">CAMA</label>
+                <select class="form-select" name="CAMA">
                     <option value="">Seleccione una cama</option>
                 </select>
-                </div>
             </div>
-            <div class="col-3"> 
-                <div class="form-group">
-                    <label class="form-label">HISTORIA/DNI</label>
-                    <input class="form-control" type="text" name="HISTORIA/DNI" value="" />
-                </div>
-            </div>
+        </div>
 
-            <div class="col-6"> 
-                <div class="form-group">
-                <label class="form-label" > DIAGNOSTICO MEDICO INGRESO</label>
-                <input class="form-control" type="text" name="DX_medico" value="" />
+        <!-- Historia/DNI -->
+        <div class="col">
+            
+            <div class="form-group">
+                <label class="form-label">HISTORIA/DNI</label>
+                <input class="form-control" type="text" name="HISTORIA/DNI" value="" readonly />
             </div>
+        </div>
+
+        <!-- Diagnóstico Médico de Ingreso -->
+        <div class="col">
+     
+            <div class="form-group">
+                <label class="form-label">DX/INGRESO</label>
+                <textarea class="form-control" type="text" name="DX_medico_ingreso" value="" ></textarea>
             </div>
+        </div>
+
+        <!-- Botón de Ver Diagnósticos Médicos -->
+        <div class="col">
+            
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" style="margin-top:30px" data-bs-toggle="modal" data-bs-target="#diagnosticosModal">
+                    Ver Diagnosticos Medicos
+                </button>
+            </div>
+        </div>
     </div>
 
+
    <div class="row my-2">
-        <div class="col-6">
+        <div class="col-3">
 
                 <div class="form-group">
                     <label class="form-label"> Nombre paciente </label>
-                    <input class="form-control" type="text" name="Nombre_Paciente" value="" />
+                <input class="form-control" type="text" name="Nombre_Paciente" value="" readonly />
                 </div>
         </div>
-    
+        <div class="col-3">
+
+            <div class="form-group">
+                <label class="form-label"> Fecha ingreso </label>
+                <input class="form-control" type="date" name="fecha_ingreso" value=""/>
+            </div>
+        </div>
         <div class="col-3">
             <div class="form-group"> 
                 <label class="form-label" > Edad </label>
-                <input class="form-control" type="text" name="Edad" value="" />
+                <input class="form-control" type="text" name="Edad" value="" readonly />
             </div>
         </div>
+
         <div class="col-3">
             <div class="form-group">
                 <label class="form-label" > Sexo</label>
-                <input class="form-control" type="text" name="Sexo" value="" />
+                <input class="form-control" type="text" name="Sexo" value="" readonly />
             </div>
         </div>
 
     </div>
+</div>
 
-    <h3> Dispositivos Medicos </h3>
+<div class="" style="margin:20px">
 
-  
-    <div>
-        <label>DISPOTIVOS MEDIOS</label>
-        
-    </div>
+	<h3> Dispositivos Medicos </h3>
 
-    <div>
-        
-        <input  />
 
+	<!-- Formulario con campos dinámicos -->
+	<div id="formularioDispositivos" >
+	</div>
+</div>
+    
+<div class="" style="margin:20px;">
+
+    <h3> Vigilancia </h3>
+
+
+    <div class="row my-2">
+        <!-- Cama -->
+        <div class="col">
+            <!-- Cambio a 'col' para flexibilidad -->
+            <div class="form-group">
+                <label class="form-label"> Descripcion </label>
+                <textarea class="form-control" type="text" name="descripcion" value=""></textarea>
+             </div>
+        </div>
+        <div class="col">
+            <!-- Cambio a 'col' para flexibilidad -->
+            <div class="form-group">
+                <label class="form-label"> DX_1 </label>
+                <input class="form-control" type="text" name="DX_1" value="" />
+            </div>
+        </div>
+        <div class="col">
+            <!-- Cambio a 'col' para flexibilidad -->
+            <div class="form-group">
+                <label class="form-label"> DX_2 </label>
+                <input class="form-control" type="text" name="DX_2" value="" />
+            </div>
+        </div>
+        <div class="col">
+            <!-- Cambio a 'col' para flexibilidad -->
+            <div class="form-group">
+                <label class="form-label"> DX_3 </label>
+                <input class="form-control" type="text" name="DX_3" value="" />
+            </div>
+        </div>
+        <div class="col">
+            <!-- Cambio a 'col' para flexibilidad -->
+            <div class="form-group">
+                <label class="form-label"> DX_4 </label>
+                <input class="form-control" type="text" name="DX_4" value="" />
+            </div>
+        </div>
     </div>
 
 
 </div>
+
+<div id="datosNeonato" style="margin:20px; display:none;">
+    <!-- Establecer display:none inicialmente -->
+    <h3> Datos Neonato </h3>
+    <div class="row my-2">
+        <div class="col">
+            <div class="form-group">
+                <label class="form-label"> Peso</label>
+                <input class="form-control" type="text" name="peso_neonato" value="" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label class="form-label"> Perimetro cefaleo </label>
+                <input class="form-control" type="text" name="perimetro_cefaleo" value="" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label class="form-label"> Perimetro toraxico </label>
+                <input class="form-control" type="text" name="perimetro_toraxico" value="" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label class="form-label"> Perimetro abdominal </label>
+                <input class="form-control" type="text" name="perimetro_abdominal" value="" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label class="form-label"> Apgan </label>
+                <input class="form-control" type="text" name="apgan" value="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="datosMadre" style="margin:30px; display:none;">
+    <!-- Establecer display:none inicialmente -->
+    <h3> Datos Madre </h3>
+    <div class="row my-2">
+        <div class="col">
+            <div class="form-group">
+                <label class="form-label"> liquido Amniotico </label>
+                <input class="form-control" type="text" name="tipo_liquido_amniotico" value="" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label class="form-label"> Tipo parto </label>
+                <input class="form-control" type="text" name="tipo_parto" value="" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label class="form-label"> Nombre completo</label>
+                <input class="form-control" type="text" name="nombre_completo" value="" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label class="form-label"> DNI </label>
+                <input class="form-control" type="text" name="DNI" value="" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label class="form-label"> direccion </label>
+                <input class="form-control" type="text" name="direccion" value="" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    @*  modal de dx *@
+    <div class="modal fade" id="diagnosticosModal" tabindex="-1" aria-labelledby="diagnosticosModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="diagnosticosModalLabel">Diagnósticos Médicos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table id="dataTablaDx" class="responsive custom-table table-striped mt-3 mb-5 border " style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>CODIGO</th>
+                                <th>Dx</th>
+                                <th>Seleccionar DX</th>
+                                <th>Nombre campo</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+   
+
+<script>
+    function agregarCamposDispositivos(dispositivos) {
+        const contenedor = document.getElementById("formularioDispositivos");
+
+        // Crear un contenedor de fila para agrupar los tres campos
+        let fila;
+
+        dispositivos.forEach((dispositivo, index) => {
+
+            // Si no hay fila o ya hay 3 elementos en la fila actual, crea una nueva fila
+            if (index % 4 === 0) {
+                fila = document.createElement("div");
+                fila.classList.add("row"); // Añadimos la clase "row" para usar el grid de Bootstrap
+                contenedor.appendChild(fila); // Agregamos la fila al contenedor
+            }
+
+            // Crear un contenedor div para cada dispositivo dentro de la fila
+            const div = document.createElement("div");
+            div.classList.add("col-md-3"); // Para que los dispositivos ocupen un tercio del ancho de la fila (col-md-4)
+
+            // Esto es para los dispositivos que se muestran con un campo de texto (input)
+            const array = ["CVP", "CUP", "VM", "CVC","SOG","NTP","SNG/SOG","Nebulización","CBN/MBR","CatUmArt","CatUmVen","PICC"];
+
+            const array_micro = ["Urocultivo", "Hemocultivo", "Cultivo"];
+
+
+
+            // Verificar si el dispositivo pertenece al array
+            if (array.includes(dispositivo.abreviatura)) {
+
+                // Crear la etiqueta (label)
+                const label = document.createElement("label");
+                label.classList.add("form-label");
+                label.classList.add("text-danger");
+                label.textContent = dispositivo.nombre_dispositivo + " (" + dispositivo.abreviatura + ")";
+
+                 // Crear el campo select
+                const select = document.createElement("select");
+                select.classList.add("form-select","my-2");
+                select.name = "dispositivo_" + dispositivo.abreviatura; // Usa abreviatura como nombre del campo
+
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Seleccione si es necesario';
+                select.appendChild(defaultOption);
+                
+                var option1 = document.createElement('option');
+                option1.value = 'No tiene factor de riesgo pero continua hospitalizado';
+                option1.textContent = 'continua sin riesgo (->)';
+                select.appendChild(option1);
+
+                var option2 = document.createElement('option');
+                option2.value = 'Ingreso';
+                option2.textContent = 'ingreso (1)';
+                select.appendChild(option2);
+
+                var option3 = document.createElement('option');
+                option3.value = 'Inicia procedimiento invasivo';
+                option3.textContent = 'proc. inva. (2)';
+                select.appendChild(option3);
+
+                var option4 = document.createElement('option');
+                option4.value = 'retiro de procedimiento invasivo';
+                option4.textContent = 'retiro (3)';
+                select.appendChild(option4);
+
+                 var option5 = document.createElement('option');
+                option5.value = 'alta';
+                option5.textContent = 'alta (4)';
+                select.appendChild(option5);
+
+                var option6 = document.createElement('option');
+                option6.value = 'paciente continua con factor de riesgo';
+                option6.textContent = 'continua con riesgo (✓)';
+                select.appendChild(option6);
+                // Agregar el label y el input al contenedor div
+                div.appendChild(label);
+                div.appendChild(select);
+
+                // Finalmente, agregar el div a la fila
+                fila.appendChild(div);
+
+            }else if (array_micro.includes(dispositivo.abreviatura)) {
+
+                // Crear la etiqueta (label)
+                const label = document.createElement("label");
+                label.classList.add("form-label");
+                label.classList.add("text-success");
+                label.textContent = dispositivo.nombre_dispositivo + " (" + dispositivo.abreviatura + ")";
+
+                 // Crear el campo select
+                const select = document.createElement("select");
+                select.classList.add("form-select");
+                select.name = "dispositivo_" + dispositivo.abreviatura; // Usa abreviatura como nombre del campo
+
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Seleccione si es necesario';
+                select.appendChild(defaultOption);
+
+                // Hacer la llamada a la API para obtener los antibióticos
+                fetch("/Microbiologia/getMicrobiologia")
+                    .then(response => response.json()) // Convertir la respuesta en JSON
+                    .then(data => {
+                        // Recorrer los datos de antibióticos y agregar opciones al select
+                        data.forEach(antibiotico => {
+
+
+
+                            const option = document.createElement("option");
+                            option.value = antibiotico.idMicrobiologia; // Asigna el idAntibiotico como valor
+                            option.textContent = antibiotico.nombreMicrobiologia; // Muestra el nombre del antibiótico
+                            select.appendChild(option); // Agrega la opción al select
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Error al cargar los microbiologia:", error);
+                    });
+
+                // Agregar el label y el select al div
+                div.appendChild(label);
+                div.appendChild(select);
+
+                // Finalmente, agregar el div a la fila
+                fila.appendChild(div);
+            }else if (dispositivo.abreviatura === "Antibiótico") {
+
+                // Crear la etiqueta (label)
+                const label = document.createElement("label");
+                label.classList.add("form-label");
+                label.classList.add("text-info");
+                label.textContent = dispositivo.nombre_dispositivo + " (" + dispositivo.abreviatura + ")";
+
+                // Crear el campo select
+                const select = document.createElement("select");
+                select.classList.add("form-select");
+                select.name = "dispositivo_" + dispositivo.abreviatura; // Usa abreviatura como nombre del campo
+
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Seleccione un antibiotico si es necesario';
+                select.appendChild(defaultOption);
+
+                // Hacer la llamada a la API para obtener los antibióticos
+                fetch("/Antibiotico/getAntibioticos")
+                    .then(response => response.json()) // Convertir la respuesta en JSON
+                    .then(data => {
+                        // Recorrer los datos de antibióticos y agregar opciones al select
+                        data.forEach(antibiotico => {
+
+                            
+
+                            const option = document.createElement("option");
+                            option.value = antibiotico.idAntibiotico; // Asigna el idAntibiotico como valor
+                            option.textContent = antibiotico.nombreAntibiotico; // Muestra el nombre del antibiótico
+                            select.appendChild(option); // Agrega la opción al select
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Error al cargar los antibióticos:", error);
+                    });
+
+                // Agregar el label y el select al div
+                div.appendChild(label);
+                div.appendChild(select);
+
+                // Finalmente, agregar el div a la fila
+                fila.appendChild(div);
+            }else{
+            
+            // Crear la etiqueta (label)
+                const label = document.createElement("label");
+                label.classList.add("form-label");
+                label.classList.add("text-primary");
+                label.textContent = dispositivo.nombre_dispositivo + " (" + dispositivo.abreviatura + ")";
+
+                // Crear el campo de texto (input)
+                const input = document.createElement("input");
+                input.classList.add("form-control");
+                input.type = "text";
+                input.name = "dispositivo_" + dispositivo.abreviatura; // Usa abreviatura como nombre del campo
+                input.value = ""; // Valor inicial (vacío)
+
+                // Agregar el label y el input al contenedor div
+                div.appendChild(label);
+                div.appendChild(input);
+
+                // Finalmente, agregar el div a la fila
+                fila.appendChild(div);
+            }
+        });
+    }
+
+
+
+</script>
+
+
+<!-- Script para llenar los campos -->
+<script>
+    // Obtén el id del servicio desde la URL (por ejemplo, ?idServicio=14)
+    const urlParams = new URLSearchParams(window.location.search);
+    const idServicio = urlParams.get('idServicio');
+
+   
+    // Obtener los dispositivos de la API
+    fetch(`/DispositivosMedicos/getDispositivosMedicosServicio/?servicio=${idServicio}`)
+        .then(response => response.json())
+        .then(data => {
+            agregarCamposDispositivos(data); // Llamar a la función para agregar los campos
+        })
+        .catch(error => {
+            console.error("Error al obtener los dispositivos: ", error);
+        });
+
+
+</script>
+
+
+<script>
+
+           $(document).ready(function () {
+        new DataTable('#dataTablaDx', {
+            ajax: {
+                url: '/Cie10/getCie10', // Endpoint para cargar los datos
+                type: 'GET', // Método de la solicitud
+                dataSrc: ''  // Los datos están en la raíz del JSON
+            },
+            columns: [
+                { data: 'codigo' },
+                { data: 'descrip' },
+                {
+                    data: null, // Acción (el botón de selección)
+                    render: function (data, type, row) {
+                        return `
+                            <button class="btn btn-primary" title="SeleccionarCie10" onclick="SeleccionarCie10('${row.codigo}','${row.descrip}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-index-thumb" viewBox="0 0 16 16">
+                                    <path d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 0 0 1 0V6.435l.106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 1 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.118a.5.5 0 0 1-.447-.276l-1.232-2.465-2.512-4.185a.517.517 0 0 1 .809-.631l2.41 2.41A.5.5 0 0 0 6 9.5V1.75A.75.75 0 0 1 6.75 1M8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v6.543L3.443 6.736A1.517 1.517 0 0 0 1.07 8.588l2.491 4.153 1.215 2.43A1.5 1.5 0 0 0 6.118 16h6.302a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5 5 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.6 2.6 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046zm2.094 2.025"/>
+                                </svg>
+                            </button>
+                        `;
+                    }
+                },
+                {
+                    // Columna con el select para elegir el campo de diagnóstico
+                    data: null, // Acción para el select
+                    render: function (data, type, row) {
+                        return `
+                            <select class="form-control" id="selectDx-${row.codigo}">
+                                <option value="DX_medico_ingreso">DX_INGRESO</option>
+                                <option value="DX_1">DX_1</option>
+                                <option value="DX_2">DX_2</option>
+                                <option value="DX_3">DX_3</option>
+                                <option value="DX_4">DX_4</option>
+                            </select>
+                        `;
+                    }
+                }
+            ],
+            responsive: true,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' // Archivo de traducción al español
+            },
+            paging: true,       // Paginación
+            searching: true,    // Búsqueda
+            ordering: false,    // Ordenación
+            pageLength: 5,      // Número de registros por página
+        });
+    });
+
+
+</script>
+
 
 <script>
     // Function to fetch patient data based on patient ID
@@ -102,38 +564,37 @@
                 }
             })
             .catch(error => {
-                console.error('Error fetching patient data:', error);
+                console.error('Error al cargar paciente', error);
             });
     }
 
-    // Function to fetch camas based on service ID
+
     function loadCamasByService(serviceId) {
-        // Construct the URL for the API endpoint
+ 
         const apiUrl = `/Cama/getCamasServicio/?id=${serviceId}`;
 
-        // Make a GET request to the API
+ 
         fetch(apiUrl)
-            .then(response => response.json()) // Parse the JSON response
+            .then(response => response.json()) 
             .then(data => {
-                // Get the select element by name
+             
                 const camaSelect = document.querySelector('select[name="CAMA"]');
 
-                // Clear any existing options
                 camaSelect.innerHTML = '';
 
-                // Add a default "Please select" option
+           
                 const defaultOption = document.createElement('option');
                 defaultOption.value = '';
                 defaultOption.textContent = 'Seleccione una cama';
                 camaSelect.appendChild(defaultOption);
 
-                // Check if data was returned
+             
                 if (data && Array.isArray(data)) {
-                    // Loop through the returned data and create an option for each cama
+            
                     data.forEach(cama => {
                         const option = document.createElement('option');
-                        option.value = cama.nombrecama; // Set the cama name as the option value
-                        option.textContent = cama.nombrecama; // Display the cama name in the dropdown
+                        option.value = cama.idcama;
+                        option.textContent = cama.nombrecama; 
                         camaSelect.appendChild(option);
                     });
                 }
@@ -143,9 +604,9 @@
             });
     }
 
-    // Load data when the page loads
+
     window.onload = function() {
-        // Get the patient id and service id from URL parameters
+        
         const urlParams = new URLSearchParams(window.location.search);
         const patientId = urlParams.get('dni');
         const idServicio = urlParams.get('idServicio');
@@ -161,19 +622,123 @@
         }
     };
 </script>
+
 <script>
 
-    
-    fetch(`/Paciente/getPaciente/?id=${id}`)
-    .then(response => response.json()) // Convertimos la respuesta a JSON
-    .then(data => {
+            function SeleccionarCie10(codigo, descripcion) {
+        // Obtiene el valor del campo seleccionado en el dropdown (selectDx-codigo)
+        let selectedDxField = document.getElementById('selectDx-' + codigo).value;
 
-        document.getElementById('HISTORIA/DNI').innerHTML = data.datos.fechaIngreso;
-        document.getElementById('HISTORIA/DNI').innerHTML = data.datos.fechaIngreso;
+        // Define el valor a agregar
+        let valueToAssign = `(${codigo}) ${descripcion}`;
 
-        });
-    })
-    .catch(error => {
-        console.error('Error al cargar los servicios: ', error);
-    });
+        // Verifica si el campo seleccionado es 'DX_medico_ingreso'
+        if (selectedDxField === 'DX_medico_ingreso') {
+            // Si es 'DX_medico_ingreso', agrega una coma antes de agregar el nuevo valor al existente
+            const fieldTextarea = document.querySelector(`textarea[name="${selectedDxField}"]`);
+            if (fieldTextarea) {
+                // Si ya hay texto, agrega una coma antes de agregar el nuevo valor
+                if (fieldTextarea.value) {
+                    fieldTextarea.value += ` | ${valueToAssign}`;
+                } else {
+                    fieldTextarea.value = valueToAssign;
+                }
+                console.log("Textarea Value: ", fieldTextarea.value);  // Muestra el valor en la consola
+            }
+
+            const fieldInput = document.querySelector(`input[name="${selectedDxField}"]`);
+            if (fieldInput) {
+                // Si ya hay texto, agrega una coma antes de agregar el nuevo valor
+                if (fieldInput.value) {
+                    fieldInput.value += `, ${valueToAssign}`;
+                } else {
+                    fieldInput.value = valueToAssign;
+                }
+                console.log("Input Value: ", fieldInput.value);  // Muestra el valor en la consola
+            }
+        } else {
+            // Para otros campos, solo se asigna el valor sin coma
+            const fieldTextarea = document.querySelector(`textarea[name="${selectedDxField}"]`);
+            if (fieldTextarea) {
+                fieldTextarea.value = valueToAssign;  // Asigna el valor sin coma al textarea
+                console.log("Textarea Value: ", fieldTextarea.value);  // Muestra el valor en la consola
+            }
+
+            const fieldInput = document.querySelector(`input[name="${selectedDxField}"]`);
+            if (fieldInput) {
+                fieldInput.value = valueToAssign;  // Asigna el valor sin coma al input
+                console.log("Input Value: ", fieldInput.value);  // Muestra el valor en la consola
+            }
+        }
+
+        // Cierra el modal
+        var myModal = new bootstrap.Modal(document.getElementById('diagnosticosModal'));
+        myModal.hide();
+    }
+
+
+
+
 </script>
+
+<script>
+
+
+    // Realizar la solicitud Fetch para obtener los servicios
+    fetch('/Servicio/getServicios')
+        .then(response => response.json()) // Convertimos la respuesta a JSON
+        .then(data => {
+            // Buscar el servicio con el codServi igual a idServicio
+            const servicio = data.find(s => s.codServi === idServicio);
+            console.log(servicio)
+            // Si se encuentra el servicio, actualizar el contenido del h3
+            if (servicio) {
+                document.getElementById('servicio_actual').textContent = `Servicio: ${servicio.nombreServicio}`; // Asumimos que 'nombre' es el campo del servicio
+            } else {
+                document.getElementById('servicio_actual').textContent = "SERVICIO NO ENCONTRADO"; // Si no se encuentra el servicio
+            }
+        })
+        .catch(error => {
+            console.error('Error al cargar los servicios: ', error);
+            document.getElementById('servicio_actual').textContent = "Error al cargar el servicio"; // Mostrar mensaje de error si hay un problema con el fetch
+        });
+</script>
+
+@* fechas *@
+
+<script>
+
+    // Obtener la fecha actual
+    const today = new Date();
+
+    // Formatear la fecha en el formato YYYY-MM-DD para el input de tipo date
+    const formattedDate = today.toISOString().split('T')[0];
+
+    // Establecer el valor del input con la fecha actual
+    document.getElementById('fecha_registro').value = formattedDate;
+
+
+</script>
+
+ <script>
+
+    $(document).ready(function() {
+        // Función para mostrar los campos si el idServicio es 16
+        function mostrarCamposPorServicio(ID) {
+            // Si el idServicio es igual a 16, mostramos los campos
+            if (idServicio == '16') {
+                $('#datosNeonato').show();  // Muestra los campos "Datos Neonato"
+                $('#datosMadre').show();    // Muestra los campos "Datos Madre"
+            } else {
+                $('#datosNeonato').hide();  // Oculta los campos "Datos Neonato"
+                $('#datosMadre').hide();    // Oculta los campos "Datos Madre"
+            }
+        }
+
+       
+        mostrarCamposPorServicio(idServicio);  // Llama a la función para verificar y mostrar/ocultar los campos
+    });
+
+    
+
+ </script>

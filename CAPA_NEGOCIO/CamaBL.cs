@@ -29,7 +29,7 @@ namespace CAPA_NEGOCIO
                             join uc in context.Ubicacioncamas on sa.Idsubarea equals uc.Idsubarea
                             where s.CodDepen == "04" && s.CodServi == codServi
                             select new
-                            {
+                            {   uc.Idcama,
                                 s.CodDepen,
                                 s.CodServi,
                                 uc.Nombrecama

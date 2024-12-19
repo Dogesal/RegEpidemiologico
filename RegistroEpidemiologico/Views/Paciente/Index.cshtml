@@ -1,47 +1,17 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
 @{
-}
-<style>
-/* Estilos para el contenedor de los botones de paginación */
-.dt-paging-button {
-    margin: 0 5px;  /* Espaciado entre los botones */
+    var usuarioAutenticado = Context.Session.GetString("UsuarioAutenticado");
+    var nombreUsuario = Context.Session.GetString("NombreUsuario");
 }
 
-/* Estilo para los botones de paginación activos */
-.dt-paging-button.active .page-link {
-    background-color: #007bff;   /* Color de fondo del botón activo */
-    color: white;                 /* Color del texto en el botón activo */
-    border-color: #007bff;       /* Borde del botón activo */
-}
+@if (usuarioAutenticado == null || nombreUsuario == null)
+{
 
-/* Estilo para los botones de paginación en estado normal */
-.dt-paging-button .page-link {
-    background-color: #f8f9fa;   /* Color de fondo de los botones normales */
-    color: #007bff;               /* Color del texto de los botones normales */
-    border: 1px solid #ddd;      /* Borde de los botones normales */
-    border-radius: 5px;          /* Bordes redondeados */
-    padding: 5px 10px;           /* Padding para un botón más grande */
-    font-size: 14px;              /* Tamaño de la fuente */
+    <script>window.location.href = `/Usuario`;</script>
 }
-
-/* Estilo cuando el usuario pasa el ratón por encima de los botones */
-.dt-paging-button .page-link:hover {
-    background-color: #007bff;   /* Fondo azul cuando se pasa el ratón */
-    color: white;                 /* Texto blanco cuando se pasa el ratón */
-    border-color: #0056b3;       /* Borde azul oscuro cuando se pasa el ratón */
-}
-
-/* Estilo para los botones de primera, anterior, siguiente y última página */
-.dt-paging-button .page-link:disabled {
-    background-color: #e9ecef;   /* Color de fondo para los botones deshabilitados */
-    color: #6c757d;               /* Color del texto para los botones deshabilitados */
-    border-color: #ddd;           /* Borde para los botones deshabilitados */
-    cursor: not-allowed;          /* Cambia el cursor cuando el botón está deshabilitado */
-}
-
-</style>
 
 <!-- Mensaje de advertencia -->
 <div id="mensajeAdvertencia" class="alert alert-warning mt-3" style="display: none;">
@@ -130,7 +100,7 @@ function Seleccionar(dni,historia) {
          const optionDefault = new Option('Seleccione un servicio', '0');
          select.appendChild(optionDefault);
 
-        const array = ["Medicina", "Cirugia", "Gineco Obstetricia", "Pediatria", "U.C.I.", "UCI-NEONATOLOGIA", "Neonatologia"];
+        const array = ["Medicina", "Cirugia", "GINECOLOGIA", "Pediatria", "U.C.I.", "UCI-NEONATOLOGIA", "Neonatologia"];
 
         // Iteramos sobre los servicios obtenidos de la API y añadimos opciones
         data.forEach(servicio => {

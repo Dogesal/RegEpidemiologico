@@ -1,22 +1,41 @@
-html {
-  font-size: 14px;
+
+
+#particles-js {
+    position: absolute; /* Fijamos la posición para que no se mueva al hacer scroll */
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 99999;
+    background-color: beige
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.particles-js-canvas-el {
+    position: absolute; /* Fija el canvas en la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    height: 100%; /* Ocupa todo el alto de la pantalla */
+    z-index: -1; /* Asegura que esté detrás de todos los elementos con un z-index mayor */
+    pointer-events: none; /* Permite que los clics pasen a través del canvas */
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+
+.js-count-particles {
+    font-size: 1.1em;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+#stats, .count-particles {
+    -webkit-user-select: none;
+    margin-top: 5px;
+    margin-left: 5px;
 }
 
-body {
-  margin-bottom: 60px;
+#stats {
+    border-radius: 3px 3px 0 0;
+    overflow: hidden;
+}
+
+.count-particles {
+    border-radius: 0 0 3px 3px;
 }

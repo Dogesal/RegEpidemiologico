@@ -13,5 +13,9 @@ public partial class ServicioDispositivosMedico
 
     public virtual ICollection<DatosVigilancium> DatosVigilancia { get; set; } = new List<DatosVigilancium>();
 
+    public string IdServicio { get; set; } = null!;
+
+    public string IdDependencia { get; set; } = null!;
     public virtual DispositivosMedico? IdDispositivosMedicosNavigation { get; set; }
 }
+

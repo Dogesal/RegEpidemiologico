@@ -4,7 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Registro Social</title>
-    <link href="~/css/content/site.css" rel="stylesheet" />
+
+	<link href="~/css/site.css" rel="stylesheet" />
+
     <link href="~/css/content/print.css" rel="stylesheet" />
     <link href="~/css/content/tabla.css" rel="stylesheet" />
     <link href="~/css/content/bootstrap.min.css" rel="stylesheet" />
@@ -35,8 +37,8 @@
     <script src="~/js/datatable/buttons.print.min.js"></script>
 
     <!-- Menú de navegación fijo en la parte superior -->
-    <div class="container-fluid">
-        <div class="">
+   
+        <div id="particles-js">
             @{
                 var usuarioAutenticado = Context.Session.GetString("UsuarioAutenticado");
                 var nombreUsuario = Context.Session.GetString("NombreUsuario");
@@ -80,12 +82,11 @@
 
             <!-- Contenido Principal con ancho de columna 8 -->
             <main class="" style="padding-left:100px;padding-right:100px; padding-top:50px;border-color:aqua ; border-radius:3px 4px" role="main" aria-labelledby="main-heading">
-                <h1 id="main-heading" class="visually-hidden">Contenido Principal de Registro Social</h1>
+                <h1 id="main-heading" class="visually-hidden">Contenido Principal de Registro Epidemiologico</h1>
                 @RenderBody()
             </main>
         </div>
-    </div>
-
+   
     <input id="idRaiz" type="hidden" value=@Url.Content("~") />
 
     <script src="~/js/usuario/sesion.js"></script>
@@ -93,8 +94,136 @@
     <script src="~/js/jquery-1.10.2.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/modernizr-2.6.2.js"></script>
-
+	<script src="~/js/usuario/confirmacion.js"></script>
     @* <script src="~/js/scripts/datatable/configuracion/configuraciondt.js"></script> *@
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- stats.js lib -->
+    <script src="https://threejs.org/examples/js/libs/stats.min.js"></script>
+    <script>
 
+
+        particlesJS('particles-js', {
+          "particles": {
+            "number": {
+              "value": 80,
+              "density": {
+                "enable": true,
+                "value_area": 900
+              }
+            },
+            "color": {
+              "value": "#fff" // Color de las partículas
+            },
+              "shape": {
+                 // "type": "circle",
+                 "type": "image",
+                 "polugon" :{
+                  "nb_sides" : 5
+
+                 },
+                  "stroke": {
+                    // "width": 1,
+                    "width": 2,
+                    "color": "#B0E2FF",
+                  },
+                  "polygon": {
+                    "nb_sides": 5
+                  },
+                  "image": {
+                    // "src": "img/github.svg",
+                    "src": "/img/PAKA1.png",
+                    "width": 100,
+                    "height": 100
+                  }
+                },
+            "opacity": {
+              "value": 0.5,
+              "random": false,
+              "anim": {
+                "enable": false,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+              }
+            },
+            "size": {
+              "value": 50,
+              "random": true,
+              "anim": {
+                "enable": false,
+                "speed": 40,
+                "size_min": 0.1,
+                "sync": false
+              }
+            },
+            "line_linked": {
+              "enable": true,
+              "distance": 150,
+              "color": "#b61924",
+              "opacity": 0.4,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 6,
+              "direction": "none",
+              "random": false,
+              "straight": false,
+              "out_mode": "out",
+              "attract": {
+                "enable": false,
+                "rotateX": 600,
+                "rotateY": 1200
+              }
+            }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "repulse"
+              },
+              "onclick": {
+                "enable": true,
+                "mode": "push"
+              },
+              "resize": true
+            },
+            "modes": {
+              "grab": {
+                "distance": 400,
+                "line_linked": {
+                  "opacity": 1
+                }
+              },
+              "bubble": {
+                "distance": 400,
+                "size": 40,
+                "duration": 2,
+                "opacity": 8,
+                "speed": 3
+              },
+              "repulse": {
+                "distance": 200
+              },
+              "push": {
+                "particles_nb": 4
+              },
+              "remove": {
+                "particles_nb": 2
+              }
+            }
+          },
+          "retina_detect": true,
+          "config_demo": {
+            "hide_card": false,
+            "background_color": "#b61924", // Color de fondo
+            "background_image": "",
+            "background_position": "50% 50%",
+            "background_repeat": "no-repeat",
+            "background_size": "cover"
+          }
+        });
+    </script>
 </body>
 </html>
