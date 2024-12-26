@@ -32,6 +32,7 @@ namespace CAPA_NEGOCIO
                         where sdm.IdServicio == servicio & s.CodDepen == "04"
                         select new
                         {
+                            ID_servicio_dispositivo=sdm.IdServicioDispositivosMedicos,
                             nombre_dispositivo = dm.NombreDispositivosMedicos,
                             abreviatura = dm.Abreviatura,
                             nombre_servicio = s.NombreServicio

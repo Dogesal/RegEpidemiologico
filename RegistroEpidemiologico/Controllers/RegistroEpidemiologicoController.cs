@@ -1,11 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CAPA_ENTIDAD.DTO;
+using CAPA_NEGOCIO;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace RegistroEpidemiologico.Controllers
 {
     public class RegistroEpidemiologicoController : Controller
     {
+        private readonly ReporteEpidemiologicoBL _reporteEpidemiologico;
 
+        public RegistroEpidemiologicoController(ReporteEpidemiologicoBL reporteEpidemiologico)
+        {
+            _reporteEpidemiologico = reporteEpidemiologico;
+        }
 
         // GET: RegistroEpidemiologicoController
         public ActionResult Index()
@@ -23,21 +31,11 @@ namespace RegistroEpidemiologico.Controllers
             return View();
         }
 
-        // POST: RegistroEpidemiologicoController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult guardarReporteEpidemiologico([FromBody] DatosRegistroEpidemiologicoDTO datosRegistroEpidemiologicoDTO)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return new JsonResult(_reporteEpidemiologico.guardarRegistroEpidemiologico(datosRegistroEpidemiologicoDTO));
         }
 
-        
     }
 }

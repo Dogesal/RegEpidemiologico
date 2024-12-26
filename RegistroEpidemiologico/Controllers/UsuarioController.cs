@@ -32,7 +32,7 @@ namespace RegistroEpidemiologico.Controllers
             if (resultado == 1) // Si la autenticación es exitosa
             {
                 HttpContext.Session.SetString("UsuarioAutenticado", "true");
-                HttpContext.Session.SetString("NombreUsuario", "Juan Pérez");
+                HttpContext.Session.SetString("NombreUsuario", login.Usu);
             }
 
             return new JsonResult(resultado);

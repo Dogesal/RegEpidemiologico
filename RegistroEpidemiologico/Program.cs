@@ -45,7 +45,7 @@ List<Type> types = new List<Type>
     typeof(DispositivosMedicosBL),
     typeof(MicrobiologiaBL),
     typeof(AntibioticoBL),
-    
+    typeof(ReporteEpidemiologicoBL)
 };
 
 foreach (var type in types)

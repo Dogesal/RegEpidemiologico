@@ -24,9 +24,9 @@ public partial class SghrhContext : DbContext
 
     public virtual DbSet<DatosEpidemiologium> DatosEpidemiologia { get; set; }
 
-    public virtual DbSet<DatosMadre> DatosMadres { get; set; }
+    public virtual DbSet<DatosMadre> DatosMadre { get; set; }
 
-    public virtual DbSet<DatosNeonato> DatosNeonatos { get; set; }
+    public virtual DbSet<DatosNeonato> DatosNeonato { get; set; }
 
     public virtual DbSet<DatosVigilancium> DatosVigilancia { get; set; }
 
@@ -40,7 +40,7 @@ public partial class SghrhContext : DbContext
 
     public virtual DbSet<Microbiologium> Microbiologia { get; set; }
 
-    public virtual DbSet<ReporteEpidemiologico> ReporteEpidemiologicos { get; set; }
+    public virtual DbSet<ReporteEpidemiologico> ReporteEpidemiologico { get; set; }
 
     public virtual DbSet<Servicio> Servicios { get; set; }
 
@@ -48,7 +48,7 @@ public partial class SghrhContext : DbContext
 
     public virtual DbSet<Ubicacioncama> Ubicacioncamas { get; set; }
 
-    public virtual DbSet<VigilanciaEpidemiologica> VigilanciaEpidemiologicas { get; set; }
+    public virtual DbSet<VigilanciaEpidemiologica> VigilanciaEpidemiologica { get; set; }
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
@@ -87,7 +87,7 @@ public partial class SghrhContext : DbContext
             entity.ToTable("cama_paciente");
 
             entity.Property(e => e.IdCamaPaciente).HasColumnName("ID_cama_paciente");
-            entity.Property(e => e.Antivo).HasColumnName("antivo");
+            entity.Property(e => e.Antivo).HasColumnName("activo");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -603,11 +603,15 @@ public partial class SghrhContext : DbContext
                 .HasMaxLength(2)
                 .IsUnicode(false)
                 .HasColumnName("ID_dependencia");
+            entity.Property(e => e.IdDniPaciente)
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("ID_DNI_paciente");
             entity.Property(e => e.IdDniPersonalSalud)
                 .HasMaxLength(8)
                 .IsUnicode(false)
                 .HasColumnName("ID_DNI_personal_salud");
-            entity.Property(e => e.IdDx).HasColumnName("ID_Dx");
+            entity.Property(e => e.DxIngreso).HasColumnName("Dx_ingreso");
             entity.Property(e => e.IdServicio)
                 .HasMaxLength(2)
                 .IsUnicode(false)
@@ -634,10 +638,6 @@ public partial class SghrhContext : DbContext
                 .HasForeignKey(d => d.IdDniPersonalSalud)
                 .HasConstraintName("FK_reporte_epidemiologico_empleado");
 
-            entity.HasOne(d => d.IdDxNavigation).WithMany(p => p.ReporteEpidemiologicos)
-                .HasForeignKey(d => d.IdDx)
-                .HasConstraintName("FK_reporte_epidemiologico_cie10");
-
             entity.HasOne(d => d.IdVigilanciaNavigation).WithMany(p => p.ReporteEpidemiologicos)
                 .HasForeignKey(d => d.IdVigilancia)
                 .HasConstraintName("FK__reporte_e__ID_vi__3E7F8E99");
@@ -645,6 +645,10 @@ public partial class SghrhContext : DbContext
             entity.HasOne(d => d.Servicio).WithMany(p => p.ReporteEpidemiologicos)
                 .HasForeignKey(d => new { d.IdDependencia, d.IdServicio })
                 .HasConstraintName("FK_reporte_epidemiologico_servicio");
+
+            entity.HasOne(d => d.IdDniPacienteNavigation).WithMany(p => p.ReporteEpidemiologicos)
+                .HasForeignKey(d => d.IdDniPaciente)
+                .HasConstraintName("FK_reporte_epidemiologico_historia");
         });
 
         modelBuilder.Entity<Servicio>(entity =>
@@ -741,11 +745,11 @@ public partial class SghrhContext : DbContext
 
         modelBuilder.Entity<VigilanciaEpidemiologica>(entity =>
         {
-            entity.HasKey(e => e.IdVigiancia).HasName("PK__vigilanc__4D66E88C8ECD13BC");
+            entity.HasKey(e => e.IdVigilancia).HasName("PK__vigilanc__4D66E88C8ECD13BC");
 
             entity.ToTable("vigilancia_epidemiologica");
 
-            entity.Property(e => e.IdVigiancia).HasColumnName("ID_vigiancia");
+            entity.Property(e => e.IdVigilancia).HasColumnName("ID_vigilancia");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -757,10 +761,22 @@ public partial class SghrhContext : DbContext
             entity.Property(e => e.Fecha)
                 .HasColumnType("datetime")
                 .HasColumnName("fecha");
-            entity.Property(e => e.IdDx1).HasColumnName("ID_dx1");
-            entity.Property(e => e.IdDx2).HasColumnName("ID_dx2");
-            entity.Property(e => e.IdDx3).HasColumnName("ID_dx3");
-            entity.Property(e => e.IdDx4).HasColumnName("ID_dx4");
+            entity.Property(e => e.Dx1)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("dx1");
+            entity.Property(e => e.Dx2)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("dx2");
+            entity.Property(e => e.Dx3)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("dx3");
+            entity.Property(e => e.Dx4)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("dx4");
         });
 
         modelBuilder.Entity<Usuario>(entity =>

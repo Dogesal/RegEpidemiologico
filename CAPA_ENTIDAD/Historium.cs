@@ -88,4 +88,6 @@ public partial class Historium
     public string? Ubigeo { get; set; }
 
     public virtual ICollection<CamaPaciente> CamaPacientes { get; set; } = new List<CamaPaciente>();
+
+    public virtual ICollection<ReporteEpidemiologico> ReporteEpidemiologicos { get; set; } = new List<ReporteEpidemiologico>();
 }

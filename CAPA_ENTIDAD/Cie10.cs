@@ -39,5 +39,5 @@ public partial class Cie10
 
     public string? CodDepen { get; set; }
 
-    public virtual ICollection<ReporteEpidemiologico> ReporteEpidemiologicos { get; set; } = new List<ReporteEpidemiologico>();
+    //public virtual ICollection<ReporteEpidemiologico> ReporteEpidemiologicos { get; set; } = new List<ReporteEpidemiologico>();
 }

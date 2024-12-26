@@ -28,7 +28,7 @@
 
     <div class="col-3 text-center">
         <label class="form-label">FECHA:</label>
-        <input class="form-control" type="date" name="fecha_registro" id="fecha_registro" />
+        <input class="form-control" type="date" name="fecha_generacion" id="fecha_generacion" />
     </div>
 </div>
 
@@ -238,6 +238,7 @@
     </div>
 </div>
 
+<button id="guardarDatos" class="btn btn-primary">Guardar Datos</button>
 
 
 
@@ -309,7 +310,7 @@
                  // Crear el campo select
                 const select = document.createElement("select");
                 select.classList.add("form-select","my-2");
-                select.name = "dispositivo_" + dispositivo.abreviatura; // Usa abreviatura como nombre del campo
+                select.name = dispositivo.iD_servicio_dispositivo; // Usa abreviatura como nombre del campo
 
                 const defaultOption = document.createElement('option');
                 defaultOption.value = '';
@@ -363,7 +364,7 @@
                  // Crear el campo select
                 const select = document.createElement("select");
                 select.classList.add("form-select");
-                select.name = "dispositivo_" + dispositivo.abreviatura; // Usa abreviatura como nombre del campo
+                select.name = dispositivo.iD_servicio_dispositivo; // Usa abreviatura como nombre del campo
 
                 const defaultOption = document.createElement('option');
                 defaultOption.value = '';
@@ -406,7 +407,7 @@
                 // Crear el campo select
                 const select = document.createElement("select");
                 select.classList.add("form-select");
-                select.name = "dispositivo_" + dispositivo.abreviatura; // Usa abreviatura como nombre del campo
+                select.name = dispositivo.iD_servicio_dispositivo; // Usa abreviatura como nombre del campo
 
                 const defaultOption = document.createElement('option');
                 defaultOption.value = '';
@@ -450,7 +451,7 @@
                 const input = document.createElement("input");
                 input.classList.add("form-control");
                 input.type = "text";
-                input.name = "dispositivo_" + dispositivo.abreviatura; // Usa abreviatura como nombre del campo
+                input.name = dispositivo.iD_servicio_dispositivo; // Usa abreviatura como nombre del campo
                 input.value = ""; // Valor inicial (vacío)
 
                 // Agregar el label y el input al contenedor div
@@ -625,7 +626,7 @@
 
 <script>
 
-            function SeleccionarCie10(codigo, descripcion) {
+       function SeleccionarCie10(codigo, descripcion) {
         // Obtiene el valor del campo seleccionado en el dropdown (selectDx-codigo)
         let selectedDxField = document.getElementById('selectDx-' + codigo).value;
 
@@ -715,7 +716,7 @@
     const formattedDate = today.toISOString().split('T')[0];
 
     // Establecer el valor del input con la fecha actual
-    document.getElementById('fecha_registro').value = formattedDate;
+    document.getElementById('fecha_generacion').value = formattedDate;
 
 
 </script>
@@ -742,3 +743,143 @@
     
 
  </script>
+
+
+@* <script>
+    function recopilarDatosDispositivos() {
+        // Crear el arreglo para almacenar los datos
+        const datosVigilancium = [];
+
+        // Seleccionar todos los campos del formulario
+        const formulario = document.getElementById("formularioDispositivos");
+        const campos = formulario.querySelectorAll("input, select");
+
+        // Recorrer cada campo y extraer los datos
+        campos.forEach(campo => {
+            const idServicioDispositivoMedico = campo.name; // Obtener el ID del dispositivo desde el atributo name
+            const descripcion = campo.value; // Obtener el valor ingresado o seleccionado
+
+            // Verificar si el campo tiene un valor
+            if (descripcion.trim() !== "") {
+                datosVigilancium.push({
+                    Descripcion: descripcion,
+                    IdServicioDispositivoMedico: parseInt(idServicioDispositivoMedico)
+                });
+            }
+        });
+
+        // Retornar o mostrar los datos recopilados
+        console.log("Datos Vigilancium:", JSON.stringify(datosVigilancium, null, 2));
+        return datosVigilancium;
+    }
+
+        // Ejemplo de uso
+        document.getElementById("guardarDatos").addEventListener("click", () => {
+            const datos = recopilarDatosDispositivos();
+            // Aquí puedes hacer algo con los datos, como enviarlos al servidor
+            console.log("Datos listos para guardar:", datos);
+        });
+</script>
+ *@
+
+        <script>
+                document.getElementById('guardarDatos').addEventListener('click', () => {
+        // Obtener los valores de los campos del formulario
+        const fechaGeneracion = document.querySelector('[name="fecha_generacion"]').value;
+        const cama = document.querySelector('[name="CAMA"]').value;
+        const historiaDni = document.querySelector('[name="HISTORIA/DNI"]').value.split('/')[1];
+        const dxIngreso = document.querySelector('[name="DX_medico_ingreso"]').value;
+        const nombrePaciente = document.querySelector('[name="Nombre_Paciente"]').value;
+        const fechaIngreso = document.querySelector('[name="fecha_ingreso"]').value;
+        const edad = document.querySelector('[name="Edad"]').value;
+        const sexo = document.querySelector('[name="Sexo"]').value;
+        const descripcionVigilancia = document.querySelector('[name="descripcion"]').value;
+        const dx1 = document.querySelector('[name="DX_1"]').value;
+        const dx2 = document.querySelector('[name="DX_2"]').value;
+        const dx3 = document.querySelector('[name="DX_3"]').value;
+        const dx4 = document.querySelector('[name="DX_4"]').value;
+
+        // Datos de Dispositivos Médicos (obtención de los inputs dinámicos)
+        const datosVigilancium = [];
+
+        // Seleccionar todos los campos del formulario
+        const formulario = document.getElementById("formularioDispositivos");
+        const campos = formulario.querySelectorAll("input, select");
+
+        // Recorrer cada campo y extraer los datos
+        campos.forEach(campo => {
+            const idServicioDispositivoMedico = campo.name; // Obtener el ID del dispositivo desde el atributo name
+            const descripcion = campo.value; // Obtener el valor ingresado o seleccionado
+
+            // Verificar si el campo tiene un valor
+            if (descripcion.trim() !== "") {
+                datosVigilancium.push({
+                    Descripcion: descripcion,
+                    IdServicioDispositivoMedico: parseInt(idServicioDispositivoMedico)
+                });
+            }
+        });
+
+        // Datos Neonato (solo si idServicio es '16')
+        const datosNeonato = (idServicio === '16') ? {
+            PerimetroCefaleo: document.querySelector('[name="perimetro_cefaleo"]').value,
+            PerimetroToraxico: document.querySelector('[name="perimetro_toraxico"]').value,
+            PerimetroAbdominal: document.querySelector('[name="perimetro_abdominal"]').value,
+            Apgan: document.querySelector('[name="apgan"]').value
+        } : {};
+
+        // Datos Madre (solo si idServicio es '16')
+        const datosMadre = (idServicio === '16') ? {
+            TipoLiquidoAmniotico: document.querySelector('[name="tipo_liquido_amniotico"]').value,
+            TipoParto: document.querySelector('[name="tipo_parto"]').value,
+            NombreCompleto: document.querySelector('[name="nombre_completo"]').value,
+            Dni: document.querySelector('[name="DNI"]').value,
+            Direccion: document.querySelector('[name="direccion"]').value
+        } : {};
+
+        // Crear objeto de datos
+        const datos = {
+            fecha_generacion: fechaGeneracion,
+            DatosVigilancium: datosVigilancium,
+            datosNeonato: datosNeonato,
+            DatosMadre: datosMadre,
+            VigilanciaEpidemiologica: {
+                Descripcion: descripcionVigilancia,
+                Fecha: new Date().toISOString(), // Puedes ajustarlo si es necesario
+                Dx1: dx1,
+                Dx2: dx2,
+                Dx3: dx3,
+                Dx4: dx4
+            },
+            DNI: historiaDni,
+            IdCama: 44,
+            IdServicio: idServicio, // Asumimos que idServicio está disponible globalmente
+            IdDependencia: "04",
+            Dx_ingreso: dxIngreso
+        };
+
+        // Mostrar los datos en la consola antes de enviarlos
+        console.log('Datos que se enviarán:', JSON.stringify(datos, null, 2));
+
+        // Enviar los datos a la API usando POST
+        fetch('/RegistroEpidemiologico/guardarReporteEpidemiologico', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos) // Convertir los datos a JSON
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Manejar la respuesta del servidor
+            console.log('Datos enviados correctamente:', data);
+            // Puedes agregar aquí una notificación de éxito, o redirigir al usuario si es necesario
+        })
+        .catch(error => {
+            // Manejar errores
+            console.error('Error al enviar los datos:', error);
+            // Puedes agregar aquí una notificación de error para el usuario
+        });
+    });
+
+        </script>

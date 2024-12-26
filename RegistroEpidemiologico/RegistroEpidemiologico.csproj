@@ -23,4 +23,8 @@
     <ProjectReference Include="..\CAPA_NEGOCIO\CAPA_NEGOCIO.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
