@@ -30,6 +30,8 @@ public partial class ReporteEpidemiologico
     public string? IdDependencia { get; set; }
 
     public string? IdDniPaciente { get; set; }
+
+    public DateTime? FechaIngreso { get; set; }
     public virtual CamaPaciente? IdCamaPacienteNavigation { get; set; }
 
     public virtual DatosMadre? IdDatosMadreNavigation { get; set; }

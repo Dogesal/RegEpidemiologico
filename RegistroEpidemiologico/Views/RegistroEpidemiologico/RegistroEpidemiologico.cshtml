@@ -15,6 +15,8 @@
 }
 
 
+
+
 <div class="row">
 
     <div class="col-3 text-center">
@@ -30,6 +32,19 @@
         <label class="form-label">FECHA:</label>
         <input class="form-control" type="date" name="fecha_generacion" id="fecha_generacion" />
     </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-3">
+
+        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#registroModal" id="verRegistros">
+            Ver registros
+        </button>
+
+    </div>
+
 </div>
 
 <div class="container">
@@ -50,7 +65,7 @@
             
             <div class="form-group">
                 <label class="form-label">HISTORIA/DNI</label>
-                <input class="form-control" type="text" name="HISTORIA/DNI" value="" readonly />
+                <input class="form-control" type="text" name="HISTORIA/DNI" id="HISTORIA/DNI" value="" readonly />
             </div>
         </div>
 
@@ -128,7 +143,7 @@
             <!-- Cambio a 'col' para flexibilidad -->
             <div class="form-group">
                 <label class="form-label"> Descripcion </label>
-                <textarea class="form-control" type="text" name="descripcion" value=""></textarea>
+                <textarea class="form-control" type="text" name="descripcion" value="" required></textarea>
              </div>
         </div>
         <div class="col">
@@ -238,12 +253,73 @@
     </div>
 </div>
 
-<button id="guardarDatos" class="btn btn-primary">Guardar Datos</button>
+<div class="row justify-content-center mb-2">
+   
+            
+        <button id="guardarDatos" class="btn btn-primary ">Guardar Datos</button>
+
+	
+</div>
+
+<style>
+    /* Estilo opcional para mejorar la apariencia */
+    .modal-body .row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .ultimo-registro {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+</style>
+
+<!-- Modal DE REGISTROS -->
+<!-- Modal DE REGISTROS -->
+<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <!-- Cambié modal-lg por modal-xl -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registroModalLabel">Registros</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Fila para las dos columnas -->
+                <div class="row">
+                    <!-- Columna para el último registro -->
+                    <div class="col-md-6" id="ultimoRegistroCol">
+                        <!-- Este espacio será llenado dinámicamente -->
+                    </div>
+
+                    <!-- Columna para la tabla de registros -->
+                    <div class="col-md-6">
+
+                        <input type="date" id="min" class="form-control" placeholder="Fecha mínima">
+                        <input type="date" id="max" class="form-control" placeholder="Fecha máxima">
+                        <table id="dataTablaRegistros" class="responsive custom-table table-striped mt-3 mb-5 border" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>dniHistoria</th>
+                                    <th>Fecha Generado</th>
+                                    <th>Servicio</th>
+                                    <th>VER DATOS</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-
-    @*  modal de dx *@
-    <div class="modal fade" id="diagnosticosModal" tabindex="-1" aria-labelledby="diagnosticosModalLabel" aria-hidden="true">
+@*  modal de dx *@
+<div class="modal fade" id="diagnosticosModal" tabindex="-1" aria-labelledby="diagnosticosModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -270,7 +346,108 @@
     </div>
    
    
+<script>
 
+       function loadPatientData(patientId) {
+        const apiUrl = `https://localhost:7061/Paciente/getPaciente/?id=${patientId}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.querySelector('input[name="HISTORIA/DNI"]').value = `${data.nhistoria}/${data.dni}`;
+                    document.querySelector('input[name="Nombre_Paciente"]').value = data.nombre;
+                    document.querySelector('input[name="Edad"]').value = data.edad;
+                    document.querySelector('input[name="Sexo"]').value = data.sexo;
+
+                    // Now check for Historia/DNI value and continue with epidemiological records
+                    const historiaDni = document.querySelector('[name="HISTORIA/DNI"]');
+                    if (historiaDni && historiaDni.value.includes("/")) {
+                        const dni = historiaDni.value.split('/')[1];
+                        console.log("DNI extraído: ", dni);
+
+                        // Fetch epidemiological records
+                        $.ajax({
+                            url: `/RegistroEpidemiologico/ultimoRegistro/?DNI=${dni}`,
+                            method: 'GET',
+                            success: function(data) {
+                                if (data) {
+                                    if (data.cama) {
+                                        $('select[name="CAMA"]').val(data.idCama);
+                                    }
+                                    if (data.dx_ingreso) {
+                                        $('textarea[name="DX_medico_ingreso"]').val(data.dx_ingreso);
+                                    }
+                                    if (data.fechaIngreso) {
+                                        const fechaIngreso = new Date(data.fechaIngreso);
+                                        const fechaFormatted = fechaIngreso.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+                                        $('input[name="fecha_ingreso"]').val(fechaFormatted);
+                                    }
+                                } else {
+                                    console.error("No se recibieron datos del servidor.");
+                                }
+                            },
+                            error: function(err) {
+                                console.error("Error en la solicitud AJAX: ", err);
+                            }
+                        });
+                    } else {
+                        console.error("El valor del campo 'HISTORIA/DNI' no tiene el formato esperado o está vacío.");
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error al cargar paciente', error);
+            });
+    }
+
+    function loadCamasByService(serviceId) {
+        const apiUrl = `/Cama/getCamasServicio/?id=${serviceId}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const camaSelect = document.querySelector('select[name="CAMA"]');
+                camaSelect.innerHTML = '';
+
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Seleccione una cama';
+                defaultOption.disabled = true; // Disable default option once beds are loaded
+                camaSelect.appendChild(defaultOption);
+
+                if (data && Array.isArray(data)) {
+                    data.forEach(cama => {
+                        const option = document.createElement('option');
+                        option.value = cama.idcama;
+                        option.textContent = cama.nombrecama;
+                        camaSelect.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching camas:', error);
+                // Optionally, display a user-friendly error message on the page.
+            });
+    }
+
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const patientId = urlParams.get('dni'); // patientId is passed as 'dni'
+        const idServicio = urlParams.get('idServicio');
+
+        if (patientId) {
+            loadPatientData(patientId);
+        }
+
+        if (idServicio) {
+            loadCamasByService(idServicio);
+        }
+    };
+
+</script>
+
+@* AGREGA LOS CAMPOS DE DISPOSITIVOS *@
 <script>
     function agregarCamposDispositivos(dispositivos) {
         const contenedor = document.getElementById("formularioDispositivos");
@@ -381,7 +558,7 @@
 
 
                             const option = document.createElement("option");
-                            option.value = antibiotico.idMicrobiologia; // Asigna el idAntibiotico como valor
+                            option.value = antibiotico.nombreMicrobiologia; // Asigna el idAntibiotico como valor
                             option.textContent = antibiotico.nombreMicrobiologia; // Muestra el nombre del antibiótico
                             select.appendChild(option); // Agrega la opción al select
                         });
@@ -424,7 +601,7 @@
                             
 
                             const option = document.createElement("option");
-                            option.value = antibiotico.idAntibiotico; // Asigna el idAntibiotico como valor
+                            option.value = antibiotico.nombreAntibiotico; // Asigna el idAntibiotico como valor
                             option.textContent = antibiotico.nombreAntibiotico; // Muestra el nombre del antibiótico
                             select.appendChild(option); // Agrega la opción al select
                         });
@@ -452,7 +629,7 @@
                 input.classList.add("form-control");
                 input.type = "text";
                 input.name = dispositivo.iD_servicio_dispositivo; // Usa abreviatura como nombre del campo
-                input.value = ""; // Valor inicial (vacío)
+                input.value = ""; 
 
                 // Agregar el label y el input al contenedor div
                 div.appendChild(label);
@@ -468,13 +645,12 @@
 
 </script>
 
-
 <!-- Script para llenar los campos -->
 <script>
     // Obtén el id del servicio desde la URL (por ejemplo, ?idServicio=14)
     const urlParams = new URLSearchParams(window.location.search);
     const idServicio = urlParams.get('idServicio');
-
+    const historiaDni = document.querySelector('[name="HISTORIA/DNI"]').value.split('/')[1];
    
     // Obtener los dispositivos de la API
     fetch(`/DispositivosMedicos/getDispositivosMedicosServicio/?servicio=${idServicio}`)
@@ -489,141 +665,7 @@
 
 </script>
 
-
-<script>
-
-           $(document).ready(function () {
-        new DataTable('#dataTablaDx', {
-            ajax: {
-                url: '/Cie10/getCie10', // Endpoint para cargar los datos
-                type: 'GET', // Método de la solicitud
-                dataSrc: ''  // Los datos están en la raíz del JSON
-            },
-            columns: [
-                { data: 'codigo' },
-                { data: 'descrip' },
-                {
-                    data: null, // Acción (el botón de selección)
-                    render: function (data, type, row) {
-                        return `
-                            <button class="btn btn-primary" title="SeleccionarCie10" onclick="SeleccionarCie10('${row.codigo}','${row.descrip}')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-index-thumb" viewBox="0 0 16 16">
-                                    <path d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 0 0 1 0V6.435l.106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 1 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.118a.5.5 0 0 1-.447-.276l-1.232-2.465-2.512-4.185a.517.517 0 0 1 .809-.631l2.41 2.41A.5.5 0 0 0 6 9.5V1.75A.75.75 0 0 1 6.75 1M8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v6.543L3.443 6.736A1.517 1.517 0 0 0 1.07 8.588l2.491 4.153 1.215 2.43A1.5 1.5 0 0 0 6.118 16h6.302a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5 5 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.6 2.6 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046zm2.094 2.025"/>
-                                </svg>
-                            </button>
-                        `;
-                    }
-                },
-                {
-                    // Columna con el select para elegir el campo de diagnóstico
-                    data: null, // Acción para el select
-                    render: function (data, type, row) {
-                        return `
-                            <select class="form-control" id="selectDx-${row.codigo}">
-                                <option value="DX_medico_ingreso">DX_INGRESO</option>
-                                <option value="DX_1">DX_1</option>
-                                <option value="DX_2">DX_2</option>
-                                <option value="DX_3">DX_3</option>
-                                <option value="DX_4">DX_4</option>
-                            </select>
-                        `;
-                    }
-                }
-            ],
-            responsive: true,
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' // Archivo de traducción al español
-            },
-            paging: true,       // Paginación
-            searching: true,    // Búsqueda
-            ordering: false,    // Ordenación
-            pageLength: 5,      // Número de registros por página
-        });
-    });
-
-
-</script>
-
-
-<script>
-    // Function to fetch patient data based on patient ID
-    function loadPatientData(patientId) {
-        // Construct the URL for the API endpoint
-        const apiUrl = `https://localhost:7061/Paciente/getPaciente/?id=${patientId}`;
-
-        // Make a GET request to the API
-        fetch(apiUrl)
-            .then(response => response.json()) // Parse the JSON response
-            .then(data => {
-                // Check if data was returned
-                if (data) {
-                    // Fill the input fields with the received data
-                    document.querySelector('input[name="HISTORIA/DNI"]').value = `${data.nhistoria}/${data.dni}`;
-                    document.querySelector('input[name="Nombre_Paciente"]').value = data.nombre;
-                    document.querySelector('input[name="Edad"]').value = data.edad;
-                    document.querySelector('input[name="Sexo"]').value = data.sexo;
-                }
-            })
-            .catch(error => {
-                console.error('Error al cargar paciente', error);
-            });
-    }
-
-
-    function loadCamasByService(serviceId) {
- 
-        const apiUrl = `/Cama/getCamasServicio/?id=${serviceId}`;
-
- 
-        fetch(apiUrl)
-            .then(response => response.json()) 
-            .then(data => {
-             
-                const camaSelect = document.querySelector('select[name="CAMA"]');
-
-                camaSelect.innerHTML = '';
-
-           
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.textContent = 'Seleccione una cama';
-                camaSelect.appendChild(defaultOption);
-
-             
-                if (data && Array.isArray(data)) {
-            
-                    data.forEach(cama => {
-                        const option = document.createElement('option');
-                        option.value = cama.idcama;
-                        option.textContent = cama.nombrecama; 
-                        camaSelect.appendChild(option);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching camas:', error);
-            });
-    }
-
-
-    window.onload = function() {
-        
-        const urlParams = new URLSearchParams(window.location.search);
-        const patientId = urlParams.get('dni');
-        const idServicio = urlParams.get('idServicio');
-
-        // Load patient data if patientId is available
-        if (patientId) {
-            loadPatientData(patientId);
-        }
-
-        // Load camas for the specified service if idServicio is available
-        if (idServicio) {
-            loadCamasByService(idServicio);
-        }
-    };
-</script>
-
+@* PARA SELECCIONAR DX *@
 <script>
 
        function SeleccionarCie10(codigo, descripcion) {
@@ -682,6 +724,7 @@
 
 </script>
 
+@* LABEL SERVICIO *@
 <script>
 
 
@@ -706,7 +749,6 @@
 </script>
 
 @* fechas *@
-
 <script>
 
     // Obtener la fecha actual
@@ -721,7 +763,8 @@
 
 </script>
 
- <script>
+@* CAMPOS UCIN *@
+<script>
 
     $(document).ready(function() {
         // Función para mostrar los campos si el idServicio es 16
@@ -744,142 +787,448 @@
 
  </script>
 
+@* GUARDA REGISTRO EPIDEMIOLOGICO *@
+<script>
+        document.getElementById('guardarDatos').addEventListener('click', () => {
+      // Mostrar alerta de confirmación antes de ejecutar la acción
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¿Deseas guardar estos datos?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, guardar',
+        cancelButtonText: 'No, cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Si el usuario confirma, ejecutamos el código de guardar los datos
+          // Obtener los valores de los campos del formulario
+          const fechaGeneracion = document.querySelector('[name="fecha_generacion"]').value;
+          const cama = document.querySelector('[name="CAMA"]').value.trim() !== "" ? document.querySelector('[name="CAMA"]').value : 44;
+          const historiaDni = document.querySelector('[name="HISTORIA/DNI"]').value.split('/')[1];
+          const dxIngreso = document.querySelector('[name="DX_medico_ingreso"]').value;
+          const nombrePaciente = document.querySelector('[name="Nombre_Paciente"]').value;
+          const fechaIngreso = document.querySelector('[name="fecha_ingreso"]').value.trim() === '' ? null : document.querySelector('[name="fecha_ingreso"]').value;
+          const edad = document.querySelector('[name="Edad"]').value;
+          const sexo = document.querySelector('[name="Sexo"]').value;
+          const descripcionVigilancia = document.querySelector('[name="descripcion"]').value;
+          const dx1 = document.querySelector('[name="DX_1"]').value;
+          const dx2 = document.querySelector('[name="DX_2"]').value;
+          const dx3 = document.querySelector('[name="DX_3"]').value;
+          const dx4 = document.querySelector('[name="DX_4"]').value;
 
-@* <script>
-    function recopilarDatosDispositivos() {
-        // Crear el arreglo para almacenar los datos
-        const datosVigilancium = [];
+          // Datos de Dispositivos Médicos (obtención de los inputs dinámicos)
+          const datosVigilancium = [];
 
-        // Seleccionar todos los campos del formulario
-        const formulario = document.getElementById("formularioDispositivos");
-        const campos = formulario.querySelectorAll("input, select");
+          // Seleccionar todos los campos del formulario
+          const formulario = document.getElementById("formularioDispositivos");
+          const campos = formulario.querySelectorAll("input, select");
 
-        // Recorrer cada campo y extraer los datos
-        campos.forEach(campo => {
+          // Recorrer cada campo y extraer los datos
+          campos.forEach(campo => {
             const idServicioDispositivoMedico = campo.name; // Obtener el ID del dispositivo desde el atributo name
             const descripcion = campo.value; // Obtener el valor ingresado o seleccionado
 
             // Verificar si el campo tiene un valor
             if (descripcion.trim() !== "") {
-                datosVigilancium.push({
-                    Descripcion: descripcion,
-                    IdServicioDispositivoMedico: parseInt(idServicioDispositivoMedico)
-                });
+              datosVigilancium.push({
+                Descripcion: descripcion,
+                IdServicioDispositivoMedico: parseInt(idServicioDispositivoMedico)
+              });
             }
-        });
+          });
 
-        // Retornar o mostrar los datos recopilados
-        console.log("Datos Vigilancium:", JSON.stringify(datosVigilancium, null, 2));
-        return datosVigilancium;
-    }
-
-        // Ejemplo de uso
-        document.getElementById("guardarDatos").addEventListener("click", () => {
-            const datos = recopilarDatosDispositivos();
-            // Aquí puedes hacer algo con los datos, como enviarlos al servidor
-            console.log("Datos listos para guardar:", datos);
-        });
-</script>
- *@
-
-        <script>
-                document.getElementById('guardarDatos').addEventListener('click', () => {
-        // Obtener los valores de los campos del formulario
-        const fechaGeneracion = document.querySelector('[name="fecha_generacion"]').value;
-        const cama = document.querySelector('[name="CAMA"]').value;
-        const historiaDni = document.querySelector('[name="HISTORIA/DNI"]').value.split('/')[1];
-        const dxIngreso = document.querySelector('[name="DX_medico_ingreso"]').value;
-        const nombrePaciente = document.querySelector('[name="Nombre_Paciente"]').value;
-        const fechaIngreso = document.querySelector('[name="fecha_ingreso"]').value;
-        const edad = document.querySelector('[name="Edad"]').value;
-        const sexo = document.querySelector('[name="Sexo"]').value;
-        const descripcionVigilancia = document.querySelector('[name="descripcion"]').value;
-        const dx1 = document.querySelector('[name="DX_1"]').value;
-        const dx2 = document.querySelector('[name="DX_2"]').value;
-        const dx3 = document.querySelector('[name="DX_3"]').value;
-        const dx4 = document.querySelector('[name="DX_4"]').value;
-
-        // Datos de Dispositivos Médicos (obtención de los inputs dinámicos)
-        const datosVigilancium = [];
-
-        // Seleccionar todos los campos del formulario
-        const formulario = document.getElementById("formularioDispositivos");
-        const campos = formulario.querySelectorAll("input, select");
-
-        // Recorrer cada campo y extraer los datos
-        campos.forEach(campo => {
-            const idServicioDispositivoMedico = campo.name; // Obtener el ID del dispositivo desde el atributo name
-            const descripcion = campo.value; // Obtener el valor ingresado o seleccionado
-
-            // Verificar si el campo tiene un valor
-            if (descripcion.trim() !== "") {
-                datosVigilancium.push({
-                    Descripcion: descripcion,
-                    IdServicioDispositivoMedico: parseInt(idServicioDispositivoMedico)
-                });
-            }
-        });
-
-        // Datos Neonato (solo si idServicio es '16')
-        const datosNeonato = (idServicio === '16') ? {
+          // Datos Neonato (solo si idServicio es '16')
+          const datosNeonato = (idServicio === '16') ? {
             PerimetroCefaleo: document.querySelector('[name="perimetro_cefaleo"]').value,
             PerimetroToraxico: document.querySelector('[name="perimetro_toraxico"]').value,
             PerimetroAbdominal: document.querySelector('[name="perimetro_abdominal"]').value,
             Apgan: document.querySelector('[name="apgan"]').value
-        } : {};
+          } : {};
 
-        // Datos Madre (solo si idServicio es '16')
-        const datosMadre = (idServicio === '16') ? {
+          // Datos Madre (solo si idServicio es '16')
+          const datosMadre = (idServicio === '16') ? {
             TipoLiquidoAmniotico: document.querySelector('[name="tipo_liquido_amniotico"]').value,
             TipoParto: document.querySelector('[name="tipo_parto"]').value,
             NombreCompleto: document.querySelector('[name="nombre_completo"]').value,
             Dni: document.querySelector('[name="DNI"]').value,
             Direccion: document.querySelector('[name="direccion"]').value
-        } : {};
+          } : {};
 
-        // Crear objeto de datos
-        const datos = {
+          // Crear objeto de datos
+          const datos = {
             fecha_generacion: fechaGeneracion,
             DatosVigilancium: datosVigilancium,
             datosNeonato: datosNeonato,
             DatosMadre: datosMadre,
             VigilanciaEpidemiologica: {
-                Descripcion: descripcionVigilancia,
-                Fecha: new Date().toISOString(), // Puedes ajustarlo si es necesario
-                Dx1: dx1,
-                Dx2: dx2,
-                Dx3: dx3,
-                Dx4: dx4
+              Descripcion: descripcionVigilancia,
+              Fecha: new Date().toISOString(),
+              Dx1: dx1,
+              Dx2: dx2,
+              Dx3: dx3,
+              Dx4: dx4
             },
             DNI: historiaDni,
-            IdCama: 44,
-            IdServicio: idServicio, // Asumimos que idServicio está disponible globalmente
+            IdCama: cama,
+            IdServicio: idServicio,
             IdDependencia: "04",
-            Dx_ingreso: dxIngreso
-        };
+            Dx_ingreso: dxIngreso,
+            fecha_ingreso: fechaIngreso
+          };
 
-        // Mostrar los datos en la consola antes de enviarlos
-        console.log('Datos que se enviarán:', JSON.stringify(datos, null, 2));
+          // Mostrar los datos en la consola antes de enviarlos
+          console.log('Datos que se enviarán:', JSON.stringify(datos, null, 2));
 
-        // Enviar los datos a la API usando POST
-        fetch('/RegistroEpidemiologico/guardarReporteEpidemiologico', {
+           // Enviar los datos a la API usando POST
+          fetch('/RegistroEpidemiologico/guardarReporteEpidemiologico', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify(datos) // Convertir los datos a JSON
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Manejar la respuesta del servidor
+          })
+          .then(response => response.json())
+          .then(data => {
+            // Mostrar notificación de éxito
+            Swal.fire({
+              icon: 'success',
+              title: '¡Datos guardados!',
+              text: 'La información se ha guardado correctamente.',
+              confirmButtonText: 'OK'
+            });
             console.log('Datos enviados correctamente:', data);
-            // Puedes agregar aquí una notificación de éxito, o redirigir al usuario si es necesario
-        })
-        .catch(error => {
-            // Manejar errores
+          })
+          .catch(error => {
+            // Mostrar notificación de error
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Hubo un problema al guardar los datos. Intenta de nuevo.',
+              confirmButtonText: 'OK'
+            });
             console.error('Error al enviar los datos:', error);
-            // Puedes agregar aquí una notificación de error para el usuario
+          });
+        }
+      });
+    });
+
+</script>
+
+@* TABLA DX *@
+<script>
+
+           $(document).ready(function () {
+        new DataTable('#dataTablaDx', {
+            ajax: {
+                url: '/Cie10/getCie10', // Endpoint para cargar los datos
+                type: 'GET', // Método de la solicitud
+                dataSrc: ''  // Los datos están en la raíz del JSON
+            },
+            columns: [
+                { data: 'codigo' },
+                { data: 'descrip' },
+                {
+                    data: null, // Acción (el botón de selección)
+                    render: function (data, type, row) {
+                        return `
+                            <button class="btn btn-primary" title="SeleccionarCie10" onclick="SeleccionarCie10('${row.codigo}','${row.descrip}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-index-thumb" viewBox="0 0 16 16">
+                                    <path d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 0 0 1 0V6.435l.106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 1 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.118a.5.5 0 0 1-.447-.276l-1.232-2.465-2.512-4.185a.517.517 0 0 1 .809-.631l2.41 2.41A.5.5 0 0 0 6 9.5V1.75A.75.75 0 0 1 6.75 1M8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v6.543L3.443 6.736A1.517 1.517 0 0 0 1.07 8.588l2.491 4.153 1.215 2.43A1.5 1.5 0 0 0 6.118 16h6.302a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5 5 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.6 2.6 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046zm2.094 2.025"/>
+                                </svg>
+                            </button>
+                        `;
+                    }
+                },
+                {
+                    // Columna con el select para elegir el campo de diagnóstico
+                    data: null, // Acción para el select
+                    render: function (data, type, row) {
+                        return `
+                            <select class="form-control" id="selectDx-${row.codigo}">
+                                <option value="DX_medico_ingreso">DX_INGRESO</option>
+                                <option value="DX_1">DX_1</option>
+                                <option value="DX_2">DX_2</option>
+                                <option value="DX_3">DX_3</option>
+                                <option value="DX_4">DX_4</option>
+                            </select>
+                        `;
+                    }
+                }
+            ],
+            responsive: true,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' // Archivo de traducción al español
+            },
+            layout: {
+                bottomEnd: null
+            }  ,    // Paginación
+            searching: true,    // Búsqueda
+            ordering: false,    // Ordenación
+            pageLength: 5,      // Número de registros por página
         });
     });
 
-        </script>
+
+</script>
+
+@* VER REGISTROS *@
+<script>
+     document.getElementById('verRegistros').addEventListener('click', () => {
+        var historiaDni = document.querySelector('[name="HISTORIA/DNI"]').value.split('/')[1];
+        console.log(historiaDni);
+
+        // Verificar si ya se han agregado los registros
+        if (document.querySelector('.ultimo-registro')) {
+            console.log('Los registros ya están cargados.');
+            return; // Si ya está cargado, no hacer nada
+        }
+
+        // Hacer una solicitud para obtener los registros
+        $.ajax({
+            url: `/RegistroEpidemiologico/ultimoRegistro/?DNI=${historiaDni}`,
+            type: 'GET',
+            success: function(response) {
+                // Mostrar los datos generales, vigilancia y dispositivos médicos en el modal
+                let dispositivosHTML = '';
+                let vigilanciaHTML = '';
+                let datosGeneralesHTML = '';
+
+                // 1. Mostrar Dispositivos Médicos
+                if (response.dispositivos && response.dispositivos.length > 0) {
+                    response.dispositivos.forEach(function(dispositivo) {
+                        dispositivosHTML += `
+                            <div class="dispositivo-item">
+                                <strong>${dispositivo.nombre_dispositivo}:</strong> ${dispositivo.descripcion}
+                            </div>
+                        `;
+                    });
+                } else {
+                    dispositivosHTML = '<p>No se encontraron dispositivos médicos.</p>';
+                }
+
+                // 2. Mostrar Vigilancia (observacion, dx1, dx2, dx3, dx4)
+                if (response.vigilancia) {
+                    vigilanciaHTML = `
+                        <div class="vigilancia-item">
+                            <strong>Observación:</strong> ${response.vigilancia.observacion || 'No disponible'}<br>
+                            <strong>DX1:</strong> ${response.vigilancia.dx1 || 'No disponible'}<br>
+                            <strong>DX2:</strong> ${response.vigilancia.dx2 || 'No disponible'}<br>
+                            <strong>DX3:</strong> ${response.vigilancia.dx3 || 'No disponible'}<br>
+                            <strong>DX4:</strong> ${response.vigilancia.dx4 || 'No disponible'}<br>
+                        </div>
+                    `;
+                }
+
+                // 3. Mostrar Datos Generales (id, dni, fechaGeneracion, dx_ingreso, cama)
+                datosGeneralesHTML = `
+                    <div class="datos-generales-item">
+                        <strong>DNI:</strong> ${response.dni || 'No disponible'}<br>
+                        <strong>Fecha de Generación:</strong> ${new Date(response.fechaGeneracion).toLocaleDateString() || 'No disponible'}<br>
+                        <strong>Diagnóstico de Ingreso:</strong> ${response.dx_ingreso || 'No disponible'}<br>
+                        <strong>Cama:</strong> ${response.cama || 'No disponible'}
+                    </div>
+                `;
+
+                // Insertar los datos en la columna #ultimoRegistroCol
+                document.getElementById('ultimoRegistroCol').innerHTML = `
+                    <div class="border m-3 p-4 rounded shadow-sm bg-light ultimo-registro">
+                        <h4 class="text-center text-primary mb-4">Último Registro</h4>
+
+                        <div class="datos-generales-section row mt-3">
+                            <div class="col-md-6">
+                                <h5 class="text-info">Datos Generales:</h5>
+                                <div class="datos-generales-content p-3 bg-white rounded shadow-sm">
+                                    ${datosGeneralesHTML}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-info">Vigilancia:</h5>
+                                <div class="vigilancia-content p-3 bg-white rounded shadow-sm">
+                                    ${vigilanciaHTML}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dispositivos-section mt-4">
+                            <h5 class="text-info">Dispositivos Médicos:</h5>
+                            <div class="dispositivos-content p-3 bg-white rounded shadow-sm">
+                                ${dispositivosHTML}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                 let minDate, maxDate;
+
+                // Función de filtrado personalizada para fechas
+                DataTable.ext.search.push(function(settings, data, dataIndex) {
+                    // Obtener los valores de los inputs de fecha
+                    minDate = document.querySelector('#min').value;
+                    maxDate = document.querySelector('#max').value;
+
+                    // Si no se ha seleccionado fecha mínima o máxima, no filtrar
+                    if (!minDate && !maxDate) {
+                        return true;
+                    }
+
+                    // Convertir las fechas a objetos Date para la comparación
+                    let date = new Date(data[1]); // Columna 1 es la fecha de la fila (ajustar índice si es necesario)
+                    minDate = minDate ? new Date(minDate) : null;
+                    maxDate = maxDate ? new Date(maxDate) : null;
+
+                    // Condiciones de filtrado
+                    if (
+                        (minDate === null && maxDate === null) ||
+                        (minDate === null && date <= maxDate) ||
+                        (minDate <= date && maxDate === null) ||
+                        (minDate <= date && date <= maxDate)
+                    ) {
+                        return true; // Mostrar fila si cumple las condiciones
+                    }
+                    return false; // Ocultar fila si no cumple las condiciones
+                });
+
+
+
+                // Inicializar la DataTable solo si no está inicializada
+                 let table = new DataTable('#dataTablaRegistros', {
+                    ajax: {
+                        url: `/RegistroEpidemiologico/datosRegistro/?DNI=${historiaDni}`,
+                        type: 'GET',
+                        dataSrc: ''
+                    },
+                    columns: [
+                        { data: 'dniHistoria' },
+                        { data: 'fecha_generado' },
+                        { data: 'servicio' },
+                        {
+                            data: null, // Acción (el botón de selección)
+                            render: function (data, type, row) {
+                                return `
+                                    <button class="btn btn-primary" title="seleccionarRegistro" onclick="seleccionarRegistro('${row.iD_registro}')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-index-thumb" viewBox="0 0 16 16">
+                                            <path d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 0 0 1 0V6.435l.106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 1 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.118a.5.5 0 0 1-.447-.276l-1.232-2.465-2.512-4.185a.517.517 0 0 1 .809-.631l2.41 2.41A.5.5 0 0 0 6 9.5V1.75A.75.75 0 0 1 6.75 1M8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v6.543L3.443 6.736A1.517 1.517 0 0 0 1.07 8.588l2.491 4.153 1.215 2.43A1.5 1.5 0 0 0 6.118 16h6.302a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5 5 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.6 2.6 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046zm2.094 2.025"/>
+                                        </svg>
+                                    </button>
+                                `;
+                            }
+                        }
+                    ],
+                    responsive: true,
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                    },
+                    layout: {
+                        bottomEnd: null,
+                        topEnd: 'search',
+                        topStart: null
+                    },
+                    
+                    searching: true,
+                    ordering: false,
+                    pageLength: 5,
+                    retrieve: true,
+                });
+
+                // Filtrar la tabla cuando cambien los valores de los inputs de fecha
+                document.querySelectorAll('#min, #max').forEach((el) => {
+                    el.addEventListener('change', () => table.draw());
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log('Error al obtener los datos adicionales: ', error);
+            }
+        });
+    });
+
+        function seleccionarRegistro(idRegistro) {
+        // Obtener el DNI desde el campo de historia
+        var historiaDni = document.querySelector('[name="HISTORIA/DNI"]').value.split('/')[1];
+
+        // Hacer una solicitud AJAX al API para obtener los detalles del registro seleccionado
+        $.ajax({
+            url: `/RegistroEpidemiologico/ultimoRegistroiD/?DNI=${historiaDni}&ID=${idRegistro}`,
+            type: 'GET',
+            success: function(response) {
+                // Mostrar los datos generales, vigilancia y dispositivos médicos en el modal
+                let dispositivosHTML = '';
+                let vigilanciaHTML = '';
+                let datosGeneralesHTML = '';
+
+                // 1. Mostrar Dispositivos Médicos
+                if (response.dispositivos && response.dispositivos.length > 0) {
+                    response.dispositivos.forEach(function(dispositivo) {
+                        dispositivosHTML += `
+                            <div class="dispositivo-item">
+                                <strong>${dispositivo.nombre_dispositivo}:</strong> ${dispositivo.descripcion}
+                            </div>
+                        `;
+                    });
+                } else {
+                    dispositivosHTML = '<p>No se encontraron dispositivos médicos.</p>';
+                }
+
+                // 2. Mostrar Vigilancia (observacion, dx1, dx2, dx3, dx4)
+                if (response.vigilancia) {
+                    vigilanciaHTML = `
+                        <div class="vigilancia-item">
+                            <strong>Observación:</strong> ${response.vigilancia.observacion || 'No disponible'}<br>
+                            <strong>DX1:</strong> ${response.vigilancia.dx1 || 'No disponible'}<br>
+                            <strong>DX2:</strong> ${response.vigilancia.dx2 || 'No disponible'}<br>
+                            <strong>DX3:</strong> ${response.vigilancia.dx3 || 'No disponible'}<br>
+                            <strong>DX4:</strong> ${response.vigilancia.dx4 || 'No disponible'}<br>
+                        </div>
+                    `;
+                }
+
+                // 3. Mostrar Datos Generales (id, dni, fechaGeneracion, dx_ingreso, cama)
+                datosGeneralesHTML = `
+                    <div class="datos-generales-item">
+                        <strong>DNI:</strong> ${response.dni || 'No disponible'}<br>
+                        <strong>Fecha de Generación:</strong> ${new Date(response.fechaGeneracion).toLocaleDateString() || 'No disponible'}<br>
+                        <strong>Diagnóstico de Ingreso:</strong> ${response.dx_ingreso || 'No disponible'}<br>
+                        <strong>Cama:</strong> ${response.cama || 'No disponible'}
+                    </div>
+                `;
+
+                // Insertar los datos en la columna #ultimoRegistroCol
+                document.getElementById('ultimoRegistroCol').innerHTML = `
+                    <div class="border m-3 p-4 rounded shadow-sm bg-light ultimo-registro">
+                        <h4 class="text-center text-primary mb-4">Registro Seleccionado</h4>
+
+                        <div class="datos-generales-section row mt-3">
+                            <div class="col-md-6">
+                                <h5 class="text-info">Datos Generales:</h5>
+                                <div class="datos-generales-content p-3 bg-white rounded shadow-sm">
+                                    ${datosGeneralesHTML}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-info">Vigilancia:</h5>
+                                <div class="vigilancia-content p-3 bg-white rounded shadow-sm">
+                                    ${vigilanciaHTML}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dispositivos-section mt-4">
+                            <h5 class="text-info">Dispositivos Médicos:</h5>
+                            <div class="dispositivos-content p-3 bg-white rounded shadow-sm">
+                                ${dispositivosHTML}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            },
+            error: function(xhr, status, error) {
+                console.log('Error al obtener los datos del registro: ', error);
+            }
+        });
+    }
+
+</script>
+
+
+<script>
+
+</script>

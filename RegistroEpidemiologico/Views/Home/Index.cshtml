@@ -24,23 +24,22 @@
         let greeting;
         let bgColor; // Variable to store the background color
 
-        if (hours < 12) {
-            greeting = "¡Buenos días!";
-            bgColor = "#FFF9C4"; // Light yellow for morning
-        } else if (hours < 18) {
-            greeting = "¡Buenas tardes!";
-            bgColor = "#BBDEFB"; // Light blue for afternoon
-        } else {
-            greeting = "¡Buenas noches!";
-            bgColor = "#455A64"; // Dark grayish-blue for evening
-        }
+            if (hours < 12) {
+                greeting = "¡Buenos días!";
+                bgColor = "#FFF9C4"; // Amarillo claro para la mañana
+            } else if (hours < 18) {
+                greeting = "¡Buenas tardes!";
+                bgColor = "#81D4FA"; // Azul claro para la tarde
+            } else {
+                greeting = "¡Buenas noches!";
+                bgColor = "#303F9F"; // Azul oscuro para la noche
+            }
 
         document.getElementById("greeting").textContent = greeting;
         document.body.style.backgroundColor = bgColor;
         document.body.style.color = hours >= 18 ? "#ffffff" : "#000000";
 
     }
-
 
     window.onload = getGreeting;
 </script>

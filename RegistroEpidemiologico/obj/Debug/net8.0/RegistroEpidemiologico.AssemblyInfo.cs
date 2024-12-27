@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RegistroEpidemiologico")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e9e1713ba0f952a69ad05855bb52bb7a875e5142")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+37e71c98bf62559cf04025eaaae738f17df46644")]
 [assembly: System.Reflection.AssemblyProductAttribute("RegistroEpidemiologico")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RegistroEpidemiologico")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

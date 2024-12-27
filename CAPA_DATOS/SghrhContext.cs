@@ -618,6 +618,8 @@ public partial class SghrhContext : DbContext
                 .HasColumnName("ID_servicio");
             entity.Property(e => e.IdVigilancia).HasColumnName("ID_vigilancia");
 
+            entity.Property(e => e.FechaIngreso).HasColumnName("fecha_ingreso");
+
             entity.HasOne(d => d.IdCamaPacienteNavigation).WithMany(p => p.ReporteEpidemiologicos)
                 .HasForeignKey(d => d.IdCamaPaciente)
                 .HasConstraintName("FK_reporte_epidemiologico_reporte_epidemiologico");

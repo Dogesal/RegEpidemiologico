@@ -37,5 +37,20 @@ namespace RegistroEpidemiologico.Controllers
             return new JsonResult(_reporteEpidemiologico.guardarRegistroEpidemiologico(datosRegistroEpidemiologicoDTO));
         }
 
+        public IActionResult datosRegistro(string DNI)
+        {
+            return new JsonResult(_reporteEpidemiologico.datosPacienteRegistro(DNI));
+        }
+
+        public IActionResult ultimoRegistro(string DNI)
+        {
+            return new JsonResult(_reporteEpidemiologico.ultimoRegistroConDispositivos(DNI));
+        }
+
+        public IActionResult ultimoRegistroiD(string DNI,int ID)
+        {
+            return new JsonResult(_reporteEpidemiologico.ultimoRegistroConDispositivos(DNI,ID));
+        }
+
     }
 }

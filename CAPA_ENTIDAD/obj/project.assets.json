@@ -2221,23 +2221,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ALAN\\.nuget\\packages\\": {},
+    "C:\\Users\\HDHVCA\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\CAPA_ENTIDAD\\CAPA_ENTIDAD.csproj",
+      "projectUniqueName": "C:\\Users\\HDHVCA\\Documents\\git\\RegEpidemiologico\\CAPA_ENTIDAD\\CAPA_ENTIDAD.csproj",
       "projectName": "CAPA_ENTIDAD",
-      "projectPath": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\CAPA_ENTIDAD\\CAPA_ENTIDAD.csproj",
-      "packagesPath": "C:\\Users\\ALAN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ALAN\\Documents\\git\\RegEpidemiologico\\CAPA_ENTIDAD\\obj\\",
+      "projectPath": "C:\\Users\\HDHVCA\\Documents\\git\\RegEpidemiologico\\CAPA_ENTIDAD\\CAPA_ENTIDAD.csproj",
+      "packagesPath": "C:\\Users\\HDHVCA\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\HDHVCA\\Documents\\git\\RegEpidemiologico\\CAPA_ENTIDAD\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ALAN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\HDHVCA\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

@@ -10,6 +10,7 @@ namespace CAPA_ENTIDAD.DTO
     public class DatosRegistroEpidemiologicoDTO
     {
         public DateTime fecha_generacion { get; set; }
+        public DateTime? fecha_ingreso { get; set; }
         public List<DatosVigilancium>? DatosVigilancium { get; set; }
         public DatosNeonato? datosNeonato { get; set; }
         public DatosMadre? datosMadre { get; set; }
